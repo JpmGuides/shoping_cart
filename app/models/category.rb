@@ -5,9 +5,11 @@ class Category < ApplicationRecord
   # Associations
   #
   belongs_to :client, inverse_of: :categories
+  has_many :products, foreign_key: :category_reference, primary_key: :reference
 
   #
   # Validations
   #
-  validates :client, :title, :description, presence: true
+  validates :client, :title, :description, :reference, presence: true
+  validates :reference, uniqueness: { scope: :client_id }
 end

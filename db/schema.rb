@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_01_155036) do
+ActiveRecord::Schema.define(version: 2020_12_01_160622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -54,6 +54,21 @@ ActiveRecord::Schema.define(version: 2020_12_01_155036) do
     t.string "webhook"
     t.string "webhook_api_key"
     t.string "currency"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "status"
+    t.boolean "display"
+    t.date "start_date"
+    t.date "end_date"
+    t.json "order_fields"
+    t.string "reference"
+    t.string "category_reference"
+    t.integer "client_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

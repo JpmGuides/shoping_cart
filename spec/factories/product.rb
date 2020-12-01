@@ -1,6 +1,7 @@
 FactoryBot.define do
-  factory :category do
+  factory :product do
     client
+    category
     title { Faker::Lorem.word }
     description { Faker::Lorem.paragraph }
     reference { Faker::Barcode.ean(8) }
