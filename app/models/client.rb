@@ -3,6 +3,11 @@ class Client < ApplicationRecord
   has_one_attached :background_image
 
   #
+  # Associations
+  #
+  has_many :categories, inverse_of: :client
+
+  #
   # Validations
   #
   validates :name, :api_key, presence: true
@@ -16,7 +21,6 @@ class Client < ApplicationRecord
   private
 
   def set_api_key
-    puts 'hello before create'
     self.api_key = generate_api_key
   end
 
