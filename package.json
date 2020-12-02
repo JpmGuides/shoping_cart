@@ -2,11 +2,22 @@
   "name": "shoping_cart",
   "private": true,
   "dependencies": {
+    "@angular/common": "^11.0.2",
+    "@angular/compiler": "^11.0.2",
+    "@angular/core": "^11.0.2",
+    "@angular/platform-browser": "^11.0.2",
+    "@angular/platform-browser-dynamic": "^11.0.2",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.3.0",
-    "turbolinks": "^5.2.0"
+    "core-js": "^3.8.0",
+    "html-loader": "^1.3.2",
+    "rxjs": "^6.6.3",
+    "ts-loader": "^8.0.11",
+    "turbolinks": "^5.2.0",
+    "typescript": "^4.1.2",
+    "zone.js": "^0.11.3"
   },
   "version": "0.1.0",
   "devDependencies": {
