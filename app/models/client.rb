@@ -7,6 +7,7 @@ class Client < ApplicationRecord
   #
   has_many :categories, inverse_of: :client
   has_many :products, inverse_of: :client
+  has_many :orders, inverse_of: :client
 
   #
   # Validations
