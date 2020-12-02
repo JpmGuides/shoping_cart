@@ -25,6 +25,12 @@ class V1::ProductsController < ApplicationController
     head :bad_request
   end
 
+  def destroy
+    product = @client.products.find_by!(reference: params[:id])
+
+    product.destroy
+  end
+
   protected
 
   def product_params
