@@ -21,7 +21,6 @@ export class AppComponent implements OnInit {
     this._http.get(window.location.href + '.json', { responseType: 'json' })
     .subscribe((data) => {
       this.order = data
-      console.log(data)
     });
   }
 }
