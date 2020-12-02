@@ -4,7 +4,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @order, methods: [:invoicing_fileds] }
+      format.json { render json: @order, methods: [:invoicing_fields] }
     end
   end
 end

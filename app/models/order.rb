@@ -13,8 +13,8 @@ class Order < ApplicationRecord
   # Instance methods
   #
 
-  def invoicing_fileds
-    client.invoicing_fileds
+  def invoicing_fields
+    client.invoicing_fields
   end
 
   private
