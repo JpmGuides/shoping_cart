@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_02_154525) do
+ActiveRecord::Schema.define(version: 2020_12_03_172757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -60,6 +60,18 @@ ActiveRecord::Schema.define(version: 2020_12_02_154525) do
     t.string "order_description"
     t.string "order_checkout_text"
     t.string "order_checkout_button"
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "product_id"
+    t.string "title"
+    t.text "description"
+    t.json "order_fields"
+    t.json "order_fields_values"
+    t.integer "order_id"
+    t.float "price"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "orders", force: :cascade do |t|

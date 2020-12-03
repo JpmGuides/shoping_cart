@@ -3,6 +3,7 @@ class Order < ApplicationRecord
   # Associations
   #
   belongs_to :client, inverse_of: :orders
+  has_many :order_items, inverse_of: :order
 
   #
   # Callbacks
@@ -12,7 +13,6 @@ class Order < ApplicationRecord
   #
   # Instance methods
   #
-
   def invoicing_fields
     client.invoicing_fields
   end
