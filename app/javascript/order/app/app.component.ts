@@ -9,6 +9,7 @@ import templateString from './app.component.html';
 
 export class AppComponent implements OnInit {
   public order: {}
+  public total
 
   constructor(private _http: HttpClient) { }
 
@@ -21,6 +22,7 @@ export class AppComponent implements OnInit {
     this._http.get(window.location.href + '.json', { responseType: 'json' })
     .subscribe((data) => {
       this.order = data
+      this.total = this.order.order_items.reduce((a, b) => +a + +b.price, 0);
     });
   }
 }

@@ -7,7 +7,7 @@ class Product < ApplicationRecord
   belongs_to :category, foreign_key: :category_reference, primary_key: :reference
   belongs_to :client, inverse_of: :products
   has_many :prices, inverse_of: :product, dependent: :delete_all
-  has_many :order_items, inverse_of: :product
+  #has_many :order_items, inverse_of: :product
 
   #
   # Validations

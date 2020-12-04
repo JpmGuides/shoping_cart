@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "ProductsControllers", type: :request do
+RSpec.describe "V1::ProductsControllers", type: :request do
   let(:client) { create(:client) }
   let(:category) { create(:category, client: client) }
 

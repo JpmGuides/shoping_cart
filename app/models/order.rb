@@ -11,6 +11,16 @@ class Order < ApplicationRecord
   before_validation :set_key, on: :create
 
   #
+  # Extensions
+  #
+  accepts_nested_attributes_for :order_items
+
+  #
+  # Validations
+  #
+  validates :client, :reference, presence: true
+
+  #
   # Instance methods
   #
   def invoicing_fields
