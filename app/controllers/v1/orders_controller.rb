@@ -20,8 +20,7 @@ class V1::OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(
-      :number, :reference, :status,  :title, :description, :checkout_text, :checkout_button,
-      invocing_fields_values: [:name, :key, :type, :required],
+      :number, :reference, :status, :title, :description, :checkout_text, :checkout_button,
       order_items_attributes: [
         :title, :description, :price, :product_reference,
         order_fields: [:name, :key, :type, :required],

@@ -20,7 +20,7 @@
               <div class="row" *ngIf="item.order_fields">
                 <div class="col-sm-12 col-lg-6" style="margin-bottom: 10px;" *ngFor="let field of item.order_fields">
                   <label [for]="field.key" [innerHTML]="field.name"></label>
-                  <input [type]="field.type" class="form-control" [id]="field.key" placeholder="" value="">
+                  <input [type]="field.type" class="form-control" [id]="field.key" [value]="valueFor(item, field.key, field.type)" [required]="field.required" placeholder="" value="">
                 </div>
               </div>
             </div>
@@ -39,7 +39,7 @@
         <div class="row">
           <div class="col-sm-12 col-lg-6" style="margin-bottom: 10px;" *ngFor="let field of order.invoicing_fields">
             <label [for]="field.key" [innerHTML]="field.name"></label>
-            <input [type]="field.type" class="form-control" [id]="field.key" placeholder="" value="">
+            <input [type]="field.type" class="form-control" [id]="field.key" [required]="field.required" placeholder="" value="">
           </div>
         </div>
 
