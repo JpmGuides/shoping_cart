@@ -8,8 +8,8 @@ import templateString from './app.component.html';
 })
 
 export class AppComponent implements OnInit {
-  public order: {}
-  public total
+  public order: any
+  public total: number
 
   constructor(private _http: HttpClient) { }
 
