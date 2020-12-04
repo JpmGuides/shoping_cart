@@ -6,6 +6,7 @@ class V1::OrdersController < ApplicationController
   def create
     valid_params = order_params
     order = @client.orders.find_or_initialize_by(reference: valid_params[:reference])
+    order.order_items.all if valid_params[:order_items_attributes].present?
     order.update!(valid_params)
 
     respond_to do |format|
