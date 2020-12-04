@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     const field = item.order_fields_values.filter(function(i) { return i.key == key})
 
     if (field.length > 0) {
-      const value = field[0].value
+      let value = field[0].value
       if (type == 'date') {
         value = Date.parse(value)
       }
