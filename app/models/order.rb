@@ -29,7 +29,11 @@ class Order < ApplicationRecord
 
   def logo
     if client.logo.attached?
-      Rails.application.routes.url_helpers.url_for(client.logo)
+      if Rails.env.production?
+        client.logo.service_url
+      else
+        Rails.application.routes.url_helpers.url_for(client.logo)
+      end
     else
       nil
     end
