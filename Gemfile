@@ -17,7 +17,8 @@ gem 'webpacker', '~> 4.0'
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
-
+# S3 adatper used in Active::Storage
+gem 'aws-sdk-s3'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 
