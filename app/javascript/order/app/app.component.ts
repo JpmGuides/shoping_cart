@@ -10,7 +10,7 @@ import templateString from './app.component.html';
 export class AppComponent implements OnInit {
   public order: any
   public total: number
-  public crsfToken: strin
+  public crsfToken: string
 
   constructor(private _http: HttpClient) { }
 
