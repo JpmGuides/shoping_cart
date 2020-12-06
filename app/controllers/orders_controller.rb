@@ -11,4 +11,29 @@ class OrdersController < ApplicationController
       }
     end
   end
+
+  def update
+    @order = Order.find_by!(key: params[:id])
+    valid_params = order_params.to_h
+    order_items_params = valid_params.delete('order_items')
+
+    order_items_params.each do |k, v|
+      next unless @order.order_items.where(id: k).exists?
+
+      item = @order.order_items.find(k)
+      item.update(order_fields_values: v.map{ |k,v| { key: k, value: v } })
+    end
+
+    @order.update(invocing_fields_values: valid_params.map{ |k,v| { key: k, value: v } }, status: 'accepted')
+
+    respond_to do |format|
+      format.html { render :show }
+    end
+  end
+
+  protected
+
+  def order_params
+    params[:order].permit!
+  end
 end

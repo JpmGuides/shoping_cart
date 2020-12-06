@@ -1,4 +1,10 @@
-<div class="container" *ngIf="order">
+<div class="container" *ngIf="order && order.status == 'accepted'">
+  <div class="py-5 text-center">
+    <img class="d-block mx-auto mb-4" [src]="order.logo" height="72">
+    <h2>Merci pour votre commande</h2>
+  </div>
+</div>
+<div class="container" *ngIf="order && order.status != 'accepted'">
   <div class="py-5 text-center">
     <img class="d-block mx-auto mb-4" [src]="order.logo" height="72">
     <h2 [innerHTML]="order.display_title"></h2>
@@ -6,7 +12,9 @@
   </div>
 
   <div class="row" *ngIf="order.order_items">
-    <form class="needs-validation" novalidate>
+    <form class="needs-validation" novalidate method="POST">
+      <input type="hidden" name="_method" value="put" />
+      <input type="hidden" name="authenticity_token" [value]="crsfToken" >
       <div class="col-md-12">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
           <span [innerHTML]="order.display_cart_title"></span>
@@ -20,16 +28,16 @@
               <div class="row" *ngIf="item.order_fields">
                 <div class="col-sm-12 col-lg-6" style="margin-bottom: 10px;" *ngFor="let field of item.order_fields">
                   <label [for]="field.key" [innerHTML]="field.name"></label>
-                  <input [type]="field.type" class="form-control" [id]="field.key" [value]="valueFor(item, field.key, field.type)" [required]="field.required" placeholder="" value="">
+                  <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[order_items][' + item.id + '][' + field.key + ']'" [value]="valueFor(item, field.key, field.type)" [required]="field.required" placeholder="" value="">
                 </div>
               </div>
             </div>
-            <span class="text-muted" [innerHTML]="item.price">$12</span>
+            <span class="text-muted">{{item.price}} ({{ order.currency }})</span>
           </li>
 
           <li class="list-group-item d-flex justify-content-between">
             <span>Total</span>
-            <strong [innerHTML]="total"></strong>
+            <strong>{{total}} ({{ order.currency }})</strong>
           </li>
         </ul>
         <hr class="mb-4">
@@ -39,14 +47,14 @@
         <div class="row">
           <div class="col-sm-12 col-lg-6" style="margin-bottom: 10px;" *ngFor="let field of order.invoicing_fields">
             <label [for]="field.key" [innerHTML]="field.name"></label>
-            <input [type]="field.type" class="form-control" [id]="field.key" [required]="field.required" placeholder="" value="">
+            <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[' + field.key + ']'" [required]="field.required" placeholder="" value="">
           </div>
         </div>
 
         <hr class="mb-4">
         <p class="lead" [innerHTML]="order.display_checkout_text"></p>
         <hr class="mb-4">
-        <button class="btn btn-primary btn-lg btn-block" type="submit" [innerHTML]="order.display_checkout_button"></button>
+        <input class="btn btn-primary btn-lg btn-block" type="submit" [innerHTML]="order.display_checkout_button">
       </div>
     </form>
   </div>

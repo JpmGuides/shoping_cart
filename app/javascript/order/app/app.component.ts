@@ -10,12 +10,13 @@ import templateString from './app.component.html';
 export class AppComponent implements OnInit {
   public order: any
   public total: number
+  public crsfToken: strin
 
   constructor(private _http: HttpClient) { }
 
   ngOnInit() {
     this.getOrder()
-    console.log(this.order)
+    this.crsfToken = document.querySelector('meta[name=csrf-token]').getAttribute('content')
   }
 
   valueFor(item: any, key: string, type: string) {

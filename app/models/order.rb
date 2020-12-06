@@ -10,6 +10,7 @@ class Order < ApplicationRecord
   #
   before_validation :set_key, on: :create
   before_create :set_currency
+  after_update :post_to_webhook_if_status_changed_to_accepted
 
   #
   # Extensions
@@ -100,7 +101,32 @@ class Order < ApplicationRecord
     end
   end
 
+  def post_to_webhook
+    puts "posting response to webhook"
+    return unless client.webhook_url.present?
+
+    uri = URI.parse(client.webhook_url)
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.post(uri, json_for_webhook.to_json)
+  end
+
+  def json_for_webhook
+    h = invocing_fields_values.map {|v| [v['key'], v['value']]}.to_h
+    h.merge!('reference' => reference)
+    items_values = []
+    order_items.each do |item|
+      value = (item.order_fields_values || []).map {|v| [v['key'], v['value']]}.to_h
+      value.merge!('reference' => (item.product_reference || item.id))
+      items_values << value
+    end
+    h.merge('items' => items_values)
+  end
+
   private
+
+  def post_to_webhook_if_status_changed_to_accepted
+    post_to_webhook if previous_changes['status'].present? && status == 'accepted'
+  end
 
   def set_key
     self.key = generate_key

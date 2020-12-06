@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :orders, only: [:show]
+  resources :orders, only: [:show, :update]
 
   concern :api_base do
     resources :categories, only: [:create]
