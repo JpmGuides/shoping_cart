@@ -9,6 +9,7 @@ class Order < ApplicationRecord
   # Callbacks
   #
   before_validation :set_key, on: :create
+  before_create :set_currency
 
   #
   # Extensions
@@ -79,6 +80,26 @@ class Order < ApplicationRecord
     end
   end
 
+  def display_cart_title
+    if cart_title.present?
+      cart_title
+    elsif client.order_cart_title.present?
+      client.order_cart_title
+    else
+      "Votre panier d'achat"
+    end
+  end
+
+  def display_address_title
+    if address_title.present?
+      address_title
+    elsif client.order_address_title.present?
+      client.order_address_title
+    else
+      "Adresse de facturation"
+    end
+  end
+
   private
 
   def set_key
@@ -93,5 +114,9 @@ class Order < ApplicationRecord
     end
 
     token
+  end
+
+  def set_currency
+    self.currency == client.currency
   end
 end

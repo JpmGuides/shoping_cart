@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_04_150147) do
+ActiveRecord::Schema.define(version: 2020_12_06_151652) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -61,6 +61,8 @@ ActiveRecord::Schema.define(version: 2020_12_04_150147) do
     t.string "order_checkout_text"
     t.string "order_checkout_button"
     t.string "webhook_url"
+    t.string "order_cart_title"
+    t.string "order_address_title"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -91,6 +93,8 @@ ActiveRecord::Schema.define(version: 2020_12_04_150147) do
     t.text "checkout_button"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "cart_title"
+    t.string "address_title"
   end
 
   create_table "prices", force: :cascade do |t|
