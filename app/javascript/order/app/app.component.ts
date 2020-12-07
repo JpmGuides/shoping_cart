@@ -20,6 +20,10 @@ export class AppComponent implements OnInit {
   }
 
   valueFor(item: any, key: string, type: string) {
+    if (!item.order_fields_values) {
+      return ''
+    }
+
     const field = item.order_fields_values.filter(function(i) { return i.key == key})
 
     if (field.length > 0) {
