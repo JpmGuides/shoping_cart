@@ -11,8 +11,6 @@ class V1::CategoriesController < ApplicationController
         category = @client.categories.find_or_initialize_by(reference: category_params[:reference])
         base_64_data = category_params.delete(:image_base_64)
 
-        category.update!(category_params)
-
         if base_64_data.present?
           category.image = {
             io: StringIO.new(Base64.decode64(base_64_data)),
@@ -21,6 +19,7 @@ class V1::CategoriesController < ApplicationController
           }
         end
 
+        category.update!(category_params)
         category_ids << category.id
       end
 
