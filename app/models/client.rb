@@ -20,6 +20,21 @@ class Client < ApplicationRecord
   #
   before_validation :set_api_key, on: :create
 
+  #
+  # Instance methods
+  #
+  def logo_url
+    if logo.attached?
+      if Rails.env.production?
+        logo.service_url
+      else
+        Rails.application.routes.url_helpers.url_for(logo)
+      end
+    else
+      nil
+    end
+  end
+
   private
 
   def set_api_key

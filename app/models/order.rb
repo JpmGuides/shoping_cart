@@ -30,15 +30,7 @@ class Order < ApplicationRecord
   end
 
   def logo
-    if client.logo.attached?
-      if Rails.env.production?
-        client.logo.service_url
-      else
-        Rails.application.routes.url_helpers.url_for(client.logo)
-      end
-    else
-      nil
-    end
+    client.logo_url
   end
 
   def display_title
