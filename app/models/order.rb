@@ -107,6 +107,7 @@ class Order < ApplicationRecord
 
     uri = URI.parse(client.webhook_url)
     http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = (uri.scheme == 'https')
     http.post(uri, json_for_webhook.to_json)
   end
 
