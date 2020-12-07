@@ -134,10 +134,10 @@ class Order < ApplicationRecord
   end
 
   def generate_key
-    token = SecureRandom.hex(25)
+    token = SecureRandom.hex(10)
 
     while Order.where(key: token).exists? do
-      token = SecureRandom.hex(25)
+      token = SecureRandom.hex(10)
     end
 
     token
