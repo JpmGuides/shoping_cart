@@ -19,4 +19,23 @@ class Product < ApplicationRecord
   # Extensions
   #
   accepts_nested_attributes_for :prices
+
+  #
+  # Instance methods
+  #
+  def image_url
+    if image.attached?
+      if Rails.env.production?
+        image.service_url
+      else
+        Rails.application.routes.url_helpers.url_for(image)
+      end
+    else
+      nil
+    end
+  end
+
+  def attributes
+    super.merge({ image_url: image_url })
+  end
 end

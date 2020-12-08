@@ -4,7 +4,7 @@ class ClientsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.json { render json: @client, include: [:categories], methods: [:logo_url] }
+      format.json { render json: @client, include: [categories: { include: [products: { include: :prices }] }], methods: [:logo_url] }
     end
   end
 

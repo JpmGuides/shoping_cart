@@ -14,3 +14,7 @@
  *= require_tree .
  *= require_self
  */
+
+.card.product .price {
+  float: right;
+}
