@@ -1,0 +1,40 @@
+<div class="container" *ngIf="client">
+  <div class="py-5 text-center" *ngIf="client">
+    <img class="d-block mx-auto mb-4" [src]="client.logo_url" height="72">
+    <h2 [innerHTML]="client.name"></h2>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-12 col-md-4">
+      <select class="form-control" [(ngModel)]="selectedCategoryReference" (ngModelChange)='findCategoryObject()'>
+        <option [value]="undefined" [innerHTML]="client.date_select_choose_text"></option>
+        <option [value]="category.reference" [innerHTML]="category.title" *ngFor="let category of client.categories"></option>
+      </select>
+    </div>
+    <div class="form-group col-12 col-md-4">
+      <input type="date" class="form-control" [readonly]="!selectedCategory" [(ngModel)]="startDate">
+    </div>
+    <div class="form-group col-12 col-md-4">
+      <div class="btn-group">
+        <button class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Choisir Skieurs
+        </button>
+        <ul class="dropdown-menu" (click)="$event.stopPropagation()">
+          <li *ngFor="let product of products" class="mb-2">
+            <div>
+              <div class="product">
+                <span [innerHTML]="product.title"></span><br>
+                <small class="text-muted" [innerHTML]="product.description"></small>
+              </div>
+              <div class="select-quantity">
+                <span class="btn btn-outline-primary btn-circle" (click)="decrementQuantity(product)">-</span>
+                 <span class="quantity" [innerHTML]="product.quantity || 0"></span>
+                <span type="button" class="btn btn-outline-primary btn-circle" (click)="incrementQuantity(product)">+</span>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,2 +1,7 @@
-<catalog></catalog>
-<%= javascript_pack_tag "catalog" %>
+<% if @client.catalog_type == 'date_select' %>
+  <date-select></date-select>
+  <%= javascript_pack_tag "date_select" %>
+<% else %>
+  <catalog></catalog>
+  <%= javascript_pack_tag "catalog" %>
+<% end %>
