@@ -29,21 +29,24 @@
   line-height: 1.42857;
 }
 
-.dropdown-menu li {
-  display: inline-block;
+.products .product-line {
+  position: relative;
+  border-bottom: 1px solid lightgrey;
 }
 
-.dropdown-menu .product {
-  padding-left: 10px;
+.products .product-line:last-child {
+  border-bottom: none;
+}
+
+.products .product {
   float: left;
 }
 
-.dropdown-menu .select-quantity {
-  margin-left: 150px;
-  width: 100px;
+.products .select-quantity {
   line-height: 3;
+  text-align: right;
 }
 
-.dropdown-menu span.quantity {
+.products span.quantity {
   margin: 0 10px;
 }
