@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+
 import templateString from './app.component.html';
 
 @Component({
@@ -16,23 +18,24 @@ export class AppComponent implements OnInit {
   public products = []
   public selectedProductReference: any
   public selectedProduct: any
+  public totalQuantity = 0
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private cookieService: CookieService) { }
 
   ngOnInit() {
     this.getClientDetails()
   }
 
   decrementQuantity(product) {
-    product.quantity = (product.quantity || 0) - 1
-
-    if (product.quantity < 0) {
-      product.quantity = 0;
+    if (product.quantity > 0) {
+      product.quantity = (product.quantity || 0) - 1
+      this.totalQuantity--
     }
   }
 
   incrementQuantity(product) {
     product.quantity = (product.quantity || 0) + 1
+    this.totalQuantity++
   }
 
   findCategoryObject() {
@@ -43,6 +46,25 @@ export class AppComponent implements OnInit {
       this.selectedCategory = undefined
       this.products = []
     }
+  }
+
+  continueToOrder() {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'X-CSRF-Token': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+      })
+    }
+
+    this._http.post(window.location.href + '/orders.json', {
+      order: {
+        key: this.cookieService.get('cart-key'),
+        start_date: this.startDate,
+        products: this.selectedCategory.products
+      }
+    }, httpOptions).subscribe(response => {
+      this.cookieService.set('cart-key', response.key, null, '/')
+      window.location.href = '//' + window.location.host + '/orders/' + response.key
+    });
   }
 
   getClientDetails() {

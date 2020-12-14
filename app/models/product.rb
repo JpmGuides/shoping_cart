@@ -37,4 +37,22 @@ class Product < ApplicationRecord
   def attributes
     super.merge({ image_url: image_url })
   end
+
+  def price_for_date(start_date = nil)
+    final_price = 0
+    if start_date.present?
+      start_date = Date.parse(start_date)
+      if category.days_count.present?
+        (start_date..(start_date + category.days_count.days)).each do |date|
+          final_price += prices.where('start_date <= ? AND end_date >= ?', date, date).first.price / category.days_count
+        end
+      else
+        final_price = prices.where('start_date <= ? AND end_date >= ?', start_date, start_date).first.price
+      end
+    else
+      final_price = prices.first.price
+    end
+
+    final_price
+  end
 end

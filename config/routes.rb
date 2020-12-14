@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :orders, only: [:show, :update]
-  resources :clients, only: [:show]
+  resources :clients, only: [:show] do
+    resources :orders, only: [:create]
+  end
 
   concern :api_base do
     resources :categories, only: [:create]

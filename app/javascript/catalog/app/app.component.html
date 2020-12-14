@@ -2,9 +2,6 @@
   <div class="py-5 text-center" *ngIf="client">
     <img class="d-block mx-auto mb-4" [src]="client.logo_url" height="72">
     <h2 [innerHTML]="client.name"></h2>
-    <!-- <svg class="bi" width="32" height="32" fill="currentColor">
-    <use xlink:href="bootstrap-icons.svg#heart-fill"/>
-    </svg> -->
   </div>
 
   <div class="row row-cols-1 row-cols-md-2" *ngIf="client && !selectedCategory">

@@ -39,4 +39,8 @@
       </div>
     </div>
   </div>
+
+  <div class="py-5 text-center">
+    <button (click)="continueToOrder()" *ngIf="totalQuantity > 0" button type="button" class="btn btn-primary">Continuer</button>
+  </div>
 </div>

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+
 import templateString from './app.component.html';
 
 @Component({
@@ -11,12 +13,21 @@ export class AppComponent implements OnInit {
   public order: any
   public total: number
   public crsfToken: string
+  public displayBack: boolean = false
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private cookieService: CookieService) { }
 
   ngOnInit() {
     this.getOrder()
+    if (this.cookieService.get('cart-key')) {
+      this.displayBack = true;
+    }
+
     this.crsfToken = document.querySelector('meta[name=csrf-token]').getAttribute('content')
+  }
+
+  goBack() {
+    window.history.back();
   }
 
   valueFor(item: any, key: string, type: string) {
