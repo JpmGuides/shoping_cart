@@ -61,7 +61,7 @@ export class AppComponent implements OnInit {
         start_date: this.startDate,
         products: this.selectedCategory.products
       }
-    }, httpOptions).subscribe(response => {
+    }, httpOptions).subscribe((response: any) => {
       this.cookieService.set('cart-key', response.key, null, '/')
       window.location.href = '//' + window.location.host + '/orders/' + response.key
     });
