@@ -58,4 +58,24 @@ export class AppComponent implements OnInit {
       this.total = this.order.order_items.reduce((a, b) => +a + +b.price, 0);
     });
   }
+
+  onSubmit(event) {
+    event.preventDefault()
+
+    let allRequiredValid: boolean = true
+    let requiredFields = document.querySelectorAll('input[required]')
+
+    for (let i = 0; i < requiredFields.length; ++i) {
+      if (!!requiredFields[i].value) {
+        requiredFields[i].classList.remove('is-invalid')
+      } else {
+        allRequiredValid = false
+        requiredFields[i].classList.add('is-invalid')
+      }
+    }
+
+    if (requiredFields) {
+      event.target.submit()
+    }
+  }
 }

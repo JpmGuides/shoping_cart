@@ -93,6 +93,16 @@ class Order < ApplicationRecord
     end
   end
 
+  def display_thank_you_text
+    if thank_you_text.present?
+      thank_you_text
+    elsif client.order_thank_you_text.present?
+      client.order_thank_you_text
+    else
+      "Merci pour votre commande"
+    end
+  end
+
   def post_to_webhook
     puts "posting response to webhook"
     return unless client.webhook_url.present?
