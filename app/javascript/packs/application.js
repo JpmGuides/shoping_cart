@@ -16,12 +16,3 @@ require("bootstrap")
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
-
-$(document).on("DOMNodeInserted", function(e) {
-  if ($(e.target).find('.datepicker')) {
-    console.log('hello')
-    $(e.target).find('.datepicker').datepicker({
-      uiLibrary: 'bootstrap4'
-    });
-  }
-});

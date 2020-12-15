@@ -19,11 +19,32 @@ export class AppComponent implements OnInit {
   public selectedProductReference: any
   public selectedProduct: any
   public totalQuantity = 0
+  public minDate: date
+  public maxDate: date
 
-  constructor(private _http: HttpClient, private cookieService: CookieService) { }
+  constructor(private _http: HttpClient, private cookieService: CookieService) {
+    const today = new Date()
+    let date = new Date()
+
+    if (today.getHours() > 12) {
+      date.setDate(date.getDate() + 2)
+      this.minDate = date
+    } else {
+      date.setDate(date.getDate() + 1)
+      this.minDate = date
+    }
+
+    date = new Date()
+    date.setMonth(date.getMonth() + 3)
+    this.maxDate = date
+  }
 
   ngOnInit() {
-    this.getClientDetails()
+    this.getClientDetails();
+  }
+
+  storeStartDate(event) {
+    console.log(event)
   }
 
   decrementQuantity(product) {
@@ -38,7 +59,9 @@ export class AppComponent implements OnInit {
     this.totalQuantity++
   }
 
+
   findCategoryObject() {
+    this.totalQuantity = 0
     if (this.selectedCategoryReference != 'undefined') {
       this.selectedCategory = this.client.categories.find((c) => { return c.reference == this.selectedCategoryReference})
       this.products = this.selectedCategory.products
