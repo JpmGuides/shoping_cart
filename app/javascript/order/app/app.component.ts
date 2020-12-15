@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
     event.preventDefault()
 
     let allRequiredValid: boolean = true
-    let requiredFields HTMLInputElement[] = document.querySelectorAll('input[required]') as HTMLInputElement[]
+    let requiredFields: NodeListOf<HTMLInputElement> = document.querySelectorAll('input[required]') as NodeListOf<HTMLInputElement>
 
     for (let i = 0; i < requiredFields.length; ++i) {
       if (!!requiredFields[i].value) {
@@ -74,7 +74,7 @@ export class AppComponent implements OnInit {
       }
     }
 
-    if (requiredFields) {
+    if (allRequiredValid) {
       event.target.submit()
     }
   }
