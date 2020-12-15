@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
     event.preventDefault()
 
     let allRequiredValid: boolean = true
-    let requiredFields = document.querySelectorAll('input[required]')
+    let requiredFields: any[] = document.querySelectorAll('input[required]')
 
     for (let i = 0; i < requiredFields.length; ++i) {
       if (!!requiredFields[i].value) {
