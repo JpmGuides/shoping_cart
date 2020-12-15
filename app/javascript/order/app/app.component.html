@@ -33,7 +33,8 @@
               <div class="row" *ngIf="item.order_fields">
                 <div class="col-sm-12 col-lg-6" style="margin-bottom: 10px;" *ngFor="let field of item.order_fields">
                   <label [for]="field.key" [innerHTML]="field.name"></label>
-                  <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[order_items][' + item.id + '][' + field.key + ']'" [value]="valueFor(item, field.key, field.type)" [required]="field.required" placeholder="" value="">
+                  <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[order_items][' + item.id + '][' + field.key + ']'" [value]="valueFor(item, field.key, field.type)" [required]="field.required" placeholder="" value="" *ngIf="field.type != 'date'">
+                  <input class="form-control" [id]="field.key" [name]="'order[order_items][' + item.id + '][' + field.key + ']'" [value]="valueFor(item, field.key, field.type)" [required]="field.required" bsDatepicker [bsConfig]="{ containerClass: 'theme-default' }" *ngIf="field.type == 'date'">
                 </div>
               </div>
             </div>

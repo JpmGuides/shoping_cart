@@ -47,7 +47,7 @@ class Product < ApplicationRecord
           final_price += prices.where('start_date <= ? AND end_date >= ?', date, date).first.price / category.days_count
         end
       else
-        final_price = prices.where('start_date <= ? AND end_date >= ?', start_date, start_date).first.price
+        final_price = prices.where('start_date <= ? AND end_date >= ?', start_date, start_date).first.try(:price)
       end
     else
       final_price = prices.first.price

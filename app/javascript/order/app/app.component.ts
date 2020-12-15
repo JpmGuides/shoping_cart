@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 import templateString from './app.component.html';
 
@@ -15,7 +16,9 @@ export class AppComponent implements OnInit {
   public crsfToken: string
   public displayBack: boolean = false
 
-  constructor(private _http: HttpClient, private cookieService: CookieService) { }
+  constructor(private _http: HttpClient, private cookieService: CookieService, private localeService: BsLocaleService) {
+    this.localeService.use('fr');
+  }
 
   ngOnInit() {
     this.getOrder()

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
+import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
 import templateString from './app.component.html';
 
@@ -22,7 +23,7 @@ export class AppComponent implements OnInit {
   public minDate: Date
   public maxDate: Date
 
-  constructor(private _http: HttpClient, private cookieService: CookieService) {
+  constructor(private _http: HttpClient, private cookieService: CookieService, private localeService: BsLocaleService) {
     const today = new Date()
     let date = new Date()
 
@@ -37,6 +38,8 @@ export class AppComponent implements OnInit {
     date = new Date()
     date.setMonth(date.getMonth() + 3)
     this.maxDate = date
+
+    this.localeService.use('fr');
   }
 
   ngOnInit() {

@@ -6,8 +6,11 @@ import { FormsModule } from '@angular/forms';
 import { CookieService } from 'ngx-cookie-service';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
-
 import { AppComponent } from './app.component';
+
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { frLocale } from 'ngx-bootstrap/locale';
+defineLocale('fr', frLocale);
 
 @NgModule({
   declarations: [
@@ -18,7 +21,7 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    BsDatepickerModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   providers: [
     CookieService
