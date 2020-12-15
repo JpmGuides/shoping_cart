@@ -39,7 +39,7 @@ class OrdersController < ApplicationController
       @order = @client.orders.find_by(key: order_params['key'])
       @order.order_items.delete_all
     else
-      @order = @client.orders.create(reference: DateTime.now.to_i.to_s)
+      @order = @client.orders.create(reference: DateTime.now.to_i.to_s, currency: client.currency)
     end
 
     order_params['products'].each do |product_params|
