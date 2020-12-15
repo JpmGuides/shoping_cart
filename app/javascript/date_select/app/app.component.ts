@@ -19,8 +19,8 @@ export class AppComponent implements OnInit {
   public selectedProductReference: any
   public selectedProduct: any
   public totalQuantity = 0
-  public minDate: date
-  public maxDate: date
+  public minDate: Date
+  public maxDate: Date
 
   constructor(private _http: HttpClient, private cookieService: CookieService) {
     const today = new Date()
@@ -41,10 +41,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.getClientDetails();
-  }
-
-  storeStartDate(event) {
-    console.log(event)
   }
 
   decrementQuantity(product) {
