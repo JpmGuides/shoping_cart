@@ -100,7 +100,13 @@ class Order < ApplicationRecord
     uri = URI.parse(client.webhook_url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == 'https')
-    http.post(uri, json_for_webhook.to_json, 'Content-Type' => 'application/json')
+
+    request = Net::HTTP::Post.new(uri.path)
+    request.basic_auth(client.basic_auth_username, client.basic_auth_password) if client.basic_auth_username.present? && client.basic_auth_password.present?
+    request.body = json_for_webhook.to_json
+    request['Content-Type'] = 'application/json'
+
+    http.request(request)
   end
 
   def json_for_webhook
