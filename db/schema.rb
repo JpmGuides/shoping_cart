@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_135657) do
+ActiveRecord::Schema.define(version: 2020_12_16_151420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -71,6 +71,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_135657) do
     t.string "catch_phrase"
     t.string "order_thank_you_text"
     t.string "subdomain"
+    t.string "order_thank_you_title"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -105,6 +106,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_135657) do
     t.string "cart_title"
     t.string "address_title"
     t.string "thank_you_text"
+    t.string "thank_you_title"
   end
 
   create_table "prices", force: :cascade do |t|

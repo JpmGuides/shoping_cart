@@ -99,6 +99,16 @@ class Order < ApplicationRecord
     elsif client.order_thank_you_text.present?
       client.order_thank_you_text
     else
+      "Les produits seront livrés dans les plus brefs délais"
+    end
+  end
+
+  def display_thank_you_title
+    if thank_you_title.present?
+      thank_you_title
+    elsif client.order_thank_you_title.present?
+      client.order_thank_you_title
+    else
       "Merci pour votre commande"
     end
   end

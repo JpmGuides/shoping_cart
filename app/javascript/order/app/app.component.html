@@ -1,7 +1,8 @@
 <div class="container" *ngIf="order && order.status == 'accepted'">
   <div class="py-5 text-center">
     <img class="d-block mx-auto mb-4" [src]="order.logo" height="72">
-    <h2 [innerHTML]="order.display_thank_you_text"></h2>
+    <h2 [innerHTML]="order.display_thank_you_title"></h2>
+    <p class="lead" [innerHTML]="order.display_thank_you_text"></p>
   </div>
 </div>
 <div class="container" *ngIf="order && order.status != 'accepted'">
