@@ -63,7 +63,7 @@ export class AppComponent implements OnInit {
     event.preventDefault()
 
     let allRequiredValid: boolean = true
-    let requiredFields: NodeListOf<HTMLInputElement> = document.querySelectorAll('input[required]') as NodeListOf<HTMLInputElement>
+    let requiredFields: NodeListOf<HTMLInputElement> = document.querySelectorAll('input[required], select[required]') as NodeListOf<HTMLInputElement>
 
     for (let i = 0; i < requiredFields.length; ++i) {
       if (!!requiredFields[i].value) {

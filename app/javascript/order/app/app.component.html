@@ -50,6 +50,20 @@
         <hr class="mb-4">
       </div>
       <div class="col-md-12">
+        <div *ngIf="order.delivery_fields && order.delivery_fields.length > 0">
+          <h4 class="mb-3" [innerHTML]="order.display_delivery_title"></h4>
+          <div class="row">
+            <div class="col-sm-12 col-lg-6" style="margin-bottom: 10px;" *ngFor="let field of order.delivery_fields">
+              <label [for]="field.key" [innerHTML]="field.name"></label>
+              <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[' + field.key + ']'" [required]="field.required" placeholder="" value="" *ngIf="field.type != 'select'">
+              <select [name]="'order[' + field.key + ']'" [required]="field.required" class="form-control" *ngIf="field.type == 'select'">
+                <option value="" disabled [innerHTML]="field.prompt"></option>
+                <option [value]="value" [innerHTML]="value" *ngFor="let value of field.values"></option>
+              </select>
+            </div>
+          </div>
+          <hr class="mb-4">
+        </div>
         <h4 class="mb-3" [innerHTML]="order.display_address_title"></h4>
         <div class="row">
           <div class="col-sm-12 col-lg-6" style="margin-bottom: 10px;" *ngFor="let field of order.invoicing_fields">

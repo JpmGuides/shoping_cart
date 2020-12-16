@@ -29,6 +29,10 @@ class Order < ApplicationRecord
     client.invoicing_fields
   end
 
+  def delivery_fields
+    client.delivery_fields
+  end
+
   def logo
     client.logo_url
   end
@@ -90,6 +94,16 @@ class Order < ApplicationRecord
       client.order_address_title
     else
       "Adresse de facturation"
+    end
+  end
+
+  def display_delivery_title
+    if delivery_title.present?
+      delivery_title
+    elsif client.order_delivery_title.present?
+      client.order_delivery_title
+    else
+      "Adresse de livraison"
     end
   end
 
