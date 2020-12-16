@@ -21,6 +21,7 @@ class V1::OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(
       :number, :reference, :status, :title, :description, :checkout_text, :checkout_button,
+      :cart_title, :address_title, :thank_you_text, :thank_you_title,
       order_items_attributes: [
         :title, :description, :price, :product_reference,
         order_fields: [:name, :key, :type, :required],
