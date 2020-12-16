@@ -1,6 +1,16 @@
 class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
+  def root
+    client = Client.find_by(subdomain: request.subdomain)
+
+    if client
+      redirect_to client_path(client)
+    else
+      render plain: 'Ce client n\'existe pas'
+    end
+  end
+
   protected
 
   def authenticate_from_api_token
