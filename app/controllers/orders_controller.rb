@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render json: @order,
-        include: { order_items: { except: [:created_at, :updated_at] } },
+        include: { order_items: { except: [:created_at, :updated_at], methods: [:category_title] } },
         methods: [:invoicing_fields, :logo, :display_title, :display_description, :display_checkout_text, :display_checkout_button, :display_cart_title, :display_address_title, :display_thank_you_text],
         except: [:title, :description, :checkout_text, :checkout_button, :created_at, :updated_at]
       }

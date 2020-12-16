@@ -28,7 +28,7 @@
         <ul class="list-group mb-3">
           <li class="list-group-item d-flex justify-content-between lh-condensed" *ngFor="let item of order.order_items">
             <div>
-              <h6 class="my-0" [innerHTML]="item.title"></h6>
+              <h6 class="my-0"><span [innerHTML]="item.title"></span><span *ngIf="item.category_title"> - </span><span [innerHTML]="item.category_title"></span></h6>
               <small class="text-muted" [innerHTML]="item.description"></small>
               <div class="row" *ngIf="item.order_fields">
                 <div class="col-sm-12 col-lg-6" style="margin-bottom: 10px;" *ngFor="let field of item.order_fields">

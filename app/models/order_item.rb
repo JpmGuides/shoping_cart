@@ -9,4 +9,21 @@ class OrderItem < ApplicationRecord
   # Validations
   #
   validates :order, :title, :price, presence: true
+
+  #
+  # Instance methods
+  #
+  def category_title
+    if product_reference.present?
+      product = order.client.products.find_by(reference: product_reference)
+
+      if product && product.category
+        product.category.title
+      else
+        ''
+      end
+    else
+      ''
+    end
+  end
 end
