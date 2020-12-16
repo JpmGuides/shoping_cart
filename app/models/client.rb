@@ -35,6 +35,18 @@ class Client < ApplicationRecord
     end
   end
 
+  def background_image_url
+    if background_image.attached?
+      if Rails.env.production?
+        background_image.service_url
+      else
+        Rails.application.routes.url_helpers.url_for(background_image)
+      end
+    else
+      nil
+    end
+  end
+
   private
 
   def set_api_key

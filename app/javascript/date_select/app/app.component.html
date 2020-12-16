@@ -1,7 +1,12 @@
 <div class="container" *ngIf="client">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light"  >
+    <span class="navbar-brand mb-0 h1" style="margin: auto" [innerHTML]="client.name"></span>
+  </nav>
+  <img class="mb-4" [src]="client.background_image_url" width="100%" *ngIf="client.background_image_url">
+
   <div class="py-5 text-center" *ngIf="client">
-    <img class="d-block mx-auto mb-4" [src]="client.logo_url" height="72">
-    <h2 [innerHTML]="client.name"></h2>
+    <img class="d-block mx-auto mb-4" [src]="client.logo_url" height="72" *ngIf="client.logo_url">
+    <h2 [innerHTML]="client.catalog_title"></h2>
     <p class="lead" [innerHTML]="client.catch_phrase"></p>
   </div>
 
