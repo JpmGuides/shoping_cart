@@ -17,6 +17,7 @@
       (function () {
         window.onpageshow = function(event) {
           if (event.persisted) {
+            document.getElementsByTagName("body")[0].style.display = "none";
             window.location.reload();
           }
         };
