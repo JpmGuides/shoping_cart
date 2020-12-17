@@ -44,12 +44,15 @@ class OrdersController < ApplicationController
 
   def create
     @client = Client.find(params[:client_id])
+    @order = @client.orders.find_by(key: order_params['key'])
 
-    if order_params['key'].present?
-      @order = @client.orders.find_by(key: order_params['key'])
+    if order_params['key'].present? && @order.present? && @order.status != 'accepted'
       @order.order_items.delete_all
     else
       @order = @client.orders.create(reference: DateTime.now.to_i.to_s, currency: @client.currency)
+      cookies[:'cart-key'] = {
+        value: @order.key
+      }
     end
 
     order_params['products'].each do |product_params|
