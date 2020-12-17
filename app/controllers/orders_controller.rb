@@ -1,6 +1,7 @@
 class OrdersController < ApplicationController
   def show
     @order = Order.find_by!(key: params[:id])
+    @client = @order.client
 
     respond_to do |format|
       format.html
