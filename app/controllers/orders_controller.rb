@@ -23,6 +23,7 @@ class OrdersController < ApplicationController
 
   def update
     @order = Order.find_by!(key: params[:id])
+    @client = @order.client
     valid_params = order_params.to_h
     order_items_params = valid_params.delete('order_items')
 
