@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_171718) do
+ActiveRecord::Schema.define(version: 2020_12_21_083228) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_171718) do
     t.json "delivery_fields"
     t.string "order_delivery_title"
     t.string "catalog_title"
+    t.json "delivery_fields_values"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -111,6 +112,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_171718) do
     t.string "thank_you_text"
     t.string "thank_you_title"
     t.string "delivery_title"
+    t.date "start_date"
   end
 
   create_table "prices", force: :cascade do |t|

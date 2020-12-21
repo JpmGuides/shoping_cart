@@ -56,7 +56,7 @@
               <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[' + field.key + ']'" [required]="field.required" placeholder="" value="" *ngIf="field.type != 'select'">
               <select [name]="'order[' + field.key + ']'" [required]="field.required" class="form-control" *ngIf="field.type == 'select'">
                 <option value="" disabled [innerHTML]="field.prompt"></option>
-                <option [value]="value" [innerHTML]="value" *ngFor="let value of field.values"></option>
+                <option [value]="value.key" [innerHTML]="value.value" *ngFor="let value of field.values | keyvalue"></option>
               </select>
             </div>
           </div>
