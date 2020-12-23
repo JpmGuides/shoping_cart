@@ -163,6 +163,7 @@ class Order < ApplicationRecord
   end
 
   def send_email_if_status_changed_to_accepted
+    return unless ENV['SEND_CONFIRMATION_EMAIL']
     return unless previous_changes['status'].present? && status == 'accepted'
     OrderMailer.with(order_id: id).confirmation.deliver_later
     OrderMailer.with(order_id: id).admin.deliver_later
