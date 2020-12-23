@@ -11,6 +11,7 @@ class Order < ApplicationRecord
   before_validation :set_key, on: :create
   before_create :set_currency
   after_update :post_to_webhook_if_status_changed_to_accepted
+  after_update :send_email_if_status_changed_to_accepted
 
   #
   # Extensions
@@ -159,6 +160,12 @@ class Order < ApplicationRecord
 
   def post_to_webhook_if_status_changed_to_accepted
     post_to_webhook if previous_changes['status'].present? && status == 'accepted'
+  end
+
+  def send_email_if_status_changed_to_accepted
+    return unless previous_changes['status'].present? && status == 'accepted'
+    OrderMailer.with(order: self).confirmation.deliver_now
+    OrderMailer.with(order: self).admin.deliver_now
   end
 
   def set_key
