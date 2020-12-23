@@ -4,7 +4,7 @@ class OrderMailer < ApplicationMailer
     order_params = @order.json_for_webhook
     @hostname = @order.client.delivery_fields.first['values'][order_params['host'].to_s]
 
-    mail(to: params['email'], subject: 'Votre commande d\'abonnements de ski')
+    mail(to: order_params['email'], subject: 'Votre commande d\'abonnements de ski')
   end
 
   def admin
