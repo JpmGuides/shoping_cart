@@ -164,8 +164,8 @@ class Order < ApplicationRecord
 
   def send_email_if_status_changed_to_accepted
     return unless previous_changes['status'].present? && status == 'accepted'
-    OrderMailer.with(order: self).confirmation.deliver_now
-    OrderMailer.with(order: self).admin.deliver_now
+    OrderMailer.with(order_id: id).confirmation.deliver_later
+    OrderMailer.with(order_id: id).admin.deliver_later
   end
 
   def set_key
