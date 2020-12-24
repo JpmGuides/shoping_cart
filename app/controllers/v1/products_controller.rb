@@ -8,6 +8,7 @@ class V1::ProductsController < ApplicationController
     product = @client.products.find_or_initialize_by(reference: valid_params[:reference])
     base_64_data = valid_params.delete(:image_base_64)
 
+    product.prices.destroy_all if valid_params[:prices_attributes].present?
     product.update!(valid_params)
 
     if base_64_data.present?
