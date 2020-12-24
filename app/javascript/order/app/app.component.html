@@ -21,7 +21,7 @@
       <input type="hidden" name="authenticity_token" [value]="crsfToken" >
       <div class="col-md-12">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span [innerHTML]="order.display_cart_title"></span>
+          <span>{{ order.display_cart_title }} - {{ order.start_date | date: 'd/M/yy'}}</span>
           <span class="badge badge-secondary badge-pill" [innerHTML]="order.order_items.length"></span>
         </h4>
         <ul class="list-group mb-3">

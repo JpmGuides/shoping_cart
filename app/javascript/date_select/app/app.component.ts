@@ -58,7 +58,6 @@ export class AppComponent implements OnInit {
     this.totalQuantity++
   }
 
-
   findCategoryObject() {
     this.totalQuantity = 0
     if (this.selectedCategoryReference != 'undefined') {
@@ -77,10 +76,15 @@ export class AppComponent implements OnInit {
       })
     }
 
+    let date = new Date(this.startDate.getFullYear(), this.startDate.getMonth(), this.startDate.getDate());
+    console.log(date)
+    date.setDate(date.getDate() + 1)
+    console.log(date)
+
     this._http.post(window.location.href + '/orders.json', {
       order: {
         key: this.cookieService.get('cart-key'),
-        start_date: this.startDate,
+        start_date: date,
         products: this.selectedCategory.products
       }
     }, httpOptions).subscribe((response: any) => {
