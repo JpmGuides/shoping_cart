@@ -48,6 +48,7 @@ class OrdersController < ApplicationController
 
     if order_params['key'].present? && @order.present? && @order.status != 'accepted'
       @order.order_items.delete_all
+      @order.update(start_date: order_params['start_date'])
     else
       @order = @client.orders.create(reference: DateTime.now.to_i.to_s, currency: @client.currency, start_date: order_params['start_date'] )
       cookies[:'cart-key'] = {
