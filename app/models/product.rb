@@ -43,7 +43,7 @@ class Product < ApplicationRecord
     if start_date.present?
       start_date = Date.parse(start_date)
       if category.days_count.present?
-        (start_date..(start_date + category.days_count.days)).each do |date|
+        (start_date..(start_date + (category.days_count - 1).days)).each do |date|
           final_price += prices.where('start_date <= ? AND end_date >= ?', date, date).first.price / category.days_count
         end
       else
