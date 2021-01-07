@@ -184,6 +184,6 @@ class Order < ApplicationRecord
   end
 
   def set_currency
-    self.currency == client.currency
+    self.currency ||= client.currency
   end
 end
