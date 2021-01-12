@@ -39,3 +39,9 @@
 .products span.quantity {
   margin: 0 10px;
 }
+
+.cart-button {
+  position: absolute;
+  right: 20px;
+  top: 11px;
+}

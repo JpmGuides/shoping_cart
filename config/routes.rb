@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   resources :orders, only: [:show, :update]
   resources :clients, only: [:show] do
-    resources :orders, only: [:create]
+    resources :orders, only: [:create] do
+      collection do
+        post :add_product
+      end
+    end
   end
 
   concern :api_base do

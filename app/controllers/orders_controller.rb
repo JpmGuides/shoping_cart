@@ -72,6 +72,29 @@ class OrdersController < ApplicationController
     end
   end
 
+  def add_product
+    @client = Client.find(params[:client_id])
+    @order = @client.orders.find_by(key: order_params['key'])
+
+    unless order_params['key'].present? && @order.present? && @order.status != 'accepted'
+      @order = @client.orders.create(reference: DateTime.now.to_i.to_s, currency: @client.currency, start_date: order_params['start_date'] )
+      cookies[:'cart-key'] = {
+        value: @order.key
+      }
+    end
+
+    order_params['products'].each do |product_params|
+      product = Product.find(product_params['id'])
+      price = product.price_for_date(order_params['start_date'])
+
+      @order.order_items.create!(title: product.title, description: product.description, price: price, order_fields: product.order_fields, product_reference: product.reference, start_date: order_params['start_date'])
+    end
+
+    respond_to do |format|
+      format.json { render json: @order, only: [:key], include: { order_items: { except: [:created_at, :updated_at], methods: [:category_title] } } }
+    end
+  end
+
   protected
 
   def order_params

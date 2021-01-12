@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CookieService } from 'ngx-cookie-service';
+
 import templateString from './app.component.html';
 
 @Component({
@@ -10,11 +12,13 @@ import templateString from './app.component.html';
 export class AppComponent implements OnInit {
   public client: any
   public selectedCategory: any
+  public order: any
 
-  constructor(private _http: HttpClient) { }
+  constructor(private _http: HttpClient, private cookieService: CookieService) { }
 
   ngOnInit() {
     this.getClientDetails()
+    this.getOrder()
   }
 
   selectCategory(category) {
@@ -29,7 +33,6 @@ export class AppComponent implements OnInit {
     this._http.get(window.location.href + '.json', { responseType: 'json' })
     .subscribe((data) => {
       this.client = data
-      console.log(data)
       let images = []
 
       this.client.categories.forEach(category => {
@@ -46,6 +49,40 @@ export class AppComponent implements OnInit {
 
       this.pload(images)
     })
+  }
+
+  getOrder() {
+    let key = this.cookieService.get('cart-key')
+
+    if (key) {
+      this._http.get('/orders/' + key + '.json', { responseType: 'json' })
+      .subscribe((data) => {
+        this.order = data
+      });
+    }
+  }
+
+  goToOrder() {
+    console.log('hello')
+    window.location.href = '//' + window.location.host + '/orders/' + this.cookieService.get('cart-key')
+  }
+
+  addProduct(product) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'X-CSRF-Token': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+      })
+    }
+
+    this._http.post(window.location.href + '/orders/add_product.json', {
+      order: {
+        key: this.cookieService.get('cart-key'),
+        products: [product]
+      }
+    }, httpOptions).subscribe((response: any) => {
+      this.cookieService.set('cart-key', response.key, null, '/')
+      this.order = response
+    });
   }
 
   pload(...args: any[]):void {

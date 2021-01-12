@@ -77,9 +77,7 @@ export class AppComponent implements OnInit {
     }
 
     let date = new Date(this.startDate.getFullYear(), this.startDate.getMonth(), this.startDate.getDate());
-    console.log(date)
     date.setDate(date.getDate() + 1)
-    console.log(date)
 
     this._http.post(window.location.href + '/orders.json', {
       order: {
