@@ -5,7 +5,7 @@ class Client < ApplicationRecord
   #
   # Associations
   #
-  has_many :categories, inverse_of: :client
+  has_many :categories, -> { order(:position) }, inverse_of: :client
   has_many :products, inverse_of: :client
   has_many :orders, inverse_of: :client
 

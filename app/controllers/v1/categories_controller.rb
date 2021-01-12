@@ -7,7 +7,7 @@ class V1::CategoriesController < ApplicationController
     category_ids = []
 
     ActiveRecord::Base.transaction do
-      categories_params[:categories].each do |category_params|
+      categories_params[:categories].each_with_index do |category_params, index|
         category = @client.categories.find_or_initialize_by(reference: category_params[:reference])
         base_64_data = category_params.delete(:image_base_64)
 
@@ -19,7 +19,7 @@ class V1::CategoriesController < ApplicationController
           }
         end
 
-        category.update!(category_params)
+        category.update!(category_params.merge(position: index))
         category_ids << category.id
       end
 
