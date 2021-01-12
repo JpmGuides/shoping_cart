@@ -1,5 +1,5 @@
 <div class="container">
-  <button type="button" class="btn btn-outline-primary mb-4 cart-button" *ngIf="order" (click)="goToOrder()">
+  <button type="button" class="btn btn-outline-secondary mb-4 cart-button" *ngIf="order" (click)="goToOrder()">
     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
       <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
     </svg>
@@ -20,7 +20,7 @@
         <div class="card-body">
           <h5 class="card-title" [innerHTML]="category.title"></h5>
           <p class="card-text" [innerHTML]="category.description"></p>
-          <a class="btn btn-primary btn-lg" role="button" aria-pressed="true" (click)="selectCategory(category)">Voir les produits</a>
+          <a class="btn btn-secondary btn-lg" role="button" aria-pressed="true" (click)="selectCategory(category)">{{ category.button_text || 'Voir les produits' }}</a>
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@
       <div class="col mb-4" *ngFor="let product of selectedCategory.products">
         <div class="card product">
           <img [src]="product.image_url" class="card-img-top" *ngIf="product.image_url">
-          <div class="card-body">
+          <div class="card-body" style="background-color: {{ client.preferences.product_card_color }}">
             <h5 class="card-title" [innerHTML]="product.title"></h5>
             <p class="card-text" [innerHTML]="product.description"></p>
           </div>
@@ -45,8 +45,8 @@
             <li class="list-group-item" *ngFor="let price of product.prices">
               <span [innerHTML]="price.name"></span>
               <span class="price">
-                <button type="button" class="btn btn-primary btn-sm" (click)="addProduct(product)">
-                  Acheter {{ price.price | number: '1.2-2'}} ({{ client.currency }})
+                <button type="button" class="btn btn-secondary btn-sm" (click)="addProduct(product)">
+                  {{ product.button_prefix_text || 'Acheter' }} {{ price.price | number: '1.2-2'}} ({{ client.currency }})
                 </button>
               </span>
             </li>

@@ -10,7 +10,7 @@
     <p class="lead" [innerHTML]="order.display_description"></p>
   </div>
 
-  <button type="button" class="btn btn-outline-primary mb-4" (click)="goBack()" *ngIf="displayBack">
+  <button type="button" class="btn btn-outline-secondary mb-4" (click)="goBack()" *ngIf="displayBack">
     <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
       <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"></path>
     </svg>
@@ -73,7 +73,7 @@
         <hr class="mb-4">
         <p class="lead" [innerHTML]="order.display_checkout_text"></p>
         <hr class="mb-4">
-        <input class="btn btn-primary btn-lg btn-block mb-4" type="submit" [value]="order.display_checkout_button">
+        <input class="btn btn-secondary btn-lg btn-block mb-4" type="submit" [value]="order.display_checkout_button">
       </div>
     </form>
   </div>

@@ -27,14 +27,14 @@
         <small class="text-muted" [innerHTML]="product.description"></small>
       </div>
       <div class="select-quantity">
-        <span class="btn btn-outline-primary btn-circle" (click)="decrementQuantity(product)">-</span>
+        <span class="btn btn-outline-secondary btn-circle" (click)="decrementQuantity(product)">-</span>
         <span class="quantity" [innerHTML]="product.quantity || 0"></span>
-        <span class="btn btn-outline-primary btn-circle" (click)="incrementQuantity(product)">+</span>
+        <span class="btn btn-outline-secondary btn-circle" (click)="incrementQuantity(product)">+</span>
       </div>
     </div>
   </div>
 
   <div class="py-5 text-center mb-4">
-    <button (click)="continueToOrder()" *ngIf="totalQuantity > 0 && startDate" button type="button" class="btn btn-primary btn-lg btn-block">Continuer</button>
+    <button (click)="continueToOrder()" *ngIf="totalQuantity > 0 && startDate" button type="button" class="btn btn-secondary btn-lg btn-block">Continuer</button>
   </div>
 </div>

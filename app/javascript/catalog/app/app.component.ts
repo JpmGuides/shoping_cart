@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 
+import * as _ from 'lodash';
 import templateString from './app.component.html';
 
 @Component({
@@ -13,6 +14,7 @@ export class AppComponent implements OnInit {
   public client: any
   public selectedCategory: any
   public order: any
+  activeFilters: any = {}
 
   constructor(private _http: HttpClient, private cookieService: CookieService) { }
 
@@ -51,6 +53,59 @@ export class AppComponent implements OnInit {
     })
   }
 
+  datesFilters() {
+    let filters = this.selectedCategory.products.map(product => {
+      if (product.start_date && product.end_date) {
+        return [product.start_date, product.end_date]
+      } else {
+        return null
+      }
+    })
+    filters = _.uniqWith(_.compact(filters), _.isEqual)
+
+    console.log(filters)
+
+    return filters
+  }
+
+  addDatesFilter(dates) {
+    if (dates != 'null') {
+      let parsedDate = dates.split(',')
+
+      this.activeFilters.start_date = new Date(parsedDate[0])
+      this.activeFilters.end_date = new Date(parsedDate[1])
+    } else {
+      delete this.activeFilters.start_date
+      delete this.activeFilters.end_date
+    }
+
+    this.applyFilters()
+  }
+
+  kindFilters() {
+    let filters = this.selectedCategory.products.map(product => {
+      return product.kind
+    })
+
+    filters = _.uniq(_.compact(filters))
+
+    return filters
+  }
+
+  addKindFilter(kind) {
+    if (kind != 'null') {
+      this.activeFilters.kind = kind
+    } else {
+      delete this.activeFilters.kind
+    }
+
+    this.applyFilters()
+  }
+
+  applyFilters() {
+    console.log(this.activeFilters)
+  }
+
   getOrder() {
     let key = this.cookieService.get('cart-key')
 
@@ -63,7 +118,6 @@ export class AppComponent implements OnInit {
   }
 
   goToOrder() {
-    console.log('hello')
     window.location.href = '//' + window.location.host + '/orders/' + this.cookieService.get('cart-key')
   }
 

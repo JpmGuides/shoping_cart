@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_12_125249) do
+ActiveRecord::Schema.define(version: 2021_01_12_125349) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 2021_01_12_125249) do
     t.integer "days_count"
     t.boolean "dates_filter", default: false
     t.boolean "kind_filter", default: false
+    t.string "button_text"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -141,6 +142,7 @@ ActiveRecord::Schema.define(version: 2021_01_12_125249) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "kind"
+    t.string "button_prefix_text"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
