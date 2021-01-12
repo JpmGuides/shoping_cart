@@ -37,10 +37,12 @@
       <div class="col mb-4" *ngFor="let product of selectedCategory.products">
         <div class="card product">
           <img [src]="product.image_url" class="card-img-top" *ngIf="product.image_url">
-          <div class="card-body" style="background-color: {{ client.preferences.product_card_background_color }}; color: {{ client.preferences.product_card_color }}">
+
+          <div class="card-body" style="background-color: {{ client.preferences.product_card_background_color }}; color: {{ client.preferences.product_card_color }};">
             <h5 class="card-title" [innerHTML]="product.title"></h5>
             <p class="card-text" [innerHTML]="product.description"></p>
           </div>
+
           <ul class="list-group list-group-flush">
             <li class="list-group-item" *ngFor="let price of product.prices">
               <span [innerHTML]="price.name"></span>
