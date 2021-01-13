@@ -43,3 +43,48 @@
 body {
   padding-top: 66px;
 }
+
+.add-to-cart {
+  position: relative;
+  overflow: hidden;
+}
+
+.add-to-cart svg {
+  left: calc(50% - 10px);
+  top: calc(50% - 10px);;
+  opacity: 0;
+  position: absolute;
+}
+
+.add-to-cart.added span {
+  animation: txt1 1.5s ease-in-out forwards;
+}
+
+.add-to-cart.added svg {
+  display: block;
+  animation: box 1.5s ease-in-out forwards;
+}
+
+@keyframes box {
+  0%, 10% {
+		opacity: 1;
+	}
+  90% {
+    opacity: 1;
+  }
+  100% {
+		opacity: 0;
+	}
+}
+
+@keyframes txt1 {
+	0% {
+		opacity: 1;
+	}
+	10%, 90% {
+		opacity: 0;
+	}
+  100% {
+    opacity: 1;
+  }
+}

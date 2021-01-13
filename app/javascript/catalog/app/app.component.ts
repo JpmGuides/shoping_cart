@@ -133,7 +133,23 @@ export class AppComponent implements OnInit {
     window.location.href = '//' + window.location.host + '/orders/' + this.cookieService.get('cart-key')
   }
 
-  addProduct(product) {
+  addProduct(product, event) {
+    let element = event.target
+
+    if (event.target.tagName == 'SPAN') {
+     element = element.parentElement
+    }
+
+    element.setAttribute('disabled', 'disabled')
+    element.classList.add('added')
+
+    setTimeout(() => {
+      element.classList.remove('added')
+      setTimeout(() => {
+        element.removeAttribute('disabled')
+      }, 20)
+    }, 1500);
+
     const httpOptions = {
       headers: new HttpHeaders({
         'X-CSRF-Token': document.querySelector('meta[name=csrf-token]').getAttribute('content')
