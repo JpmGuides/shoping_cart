@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   public selectedDatesFilter: any = 'null'
   public selectedKindFilter: any = 'null'
   activeFilters: any = {}
+  availableProducts: any
 
   constructor(private _http: HttpClient, private cookieService: CookieService) { }
 
@@ -28,12 +29,11 @@ export class AppComponent implements OnInit {
   selectCategory(category) {
     this.selectedCategory = category
     this.availableProducts = this.selectedCategory.products
-    console.log(this.availableProducts)
   }
 
   deselectCategory() {
     this.selectedCategory = null
-    this.selectedDateFilter = ''
+    this.selectedDatesFilter = ''
     this.availableProducts = null
   }
 
