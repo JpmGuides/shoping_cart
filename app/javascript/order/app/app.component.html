@@ -1,3 +1,16 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <div class="container">
+    <button type="button" class="btn btn-outline-secondary" (click)="goBack()" *ngIf="displayBack">
+      <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"></path>
+      </svg>
+    </button>
+
+    <img [src]="order.logo" *ngIf="order.logo" style="margin: auto; max-height: 50px; max-width: 60%">
+    <span class="navbar-brand mb-0 h1" style="margin: auto" *ngIf="!order.logo">{{ order.client_name }}</span>
+  </div>
+</nav>
+
 <div class="container" *ngIf="order && order.status == 'accepted'">
   <div class="py-5 text-center">
     <h2 [innerHTML]="order.display_thank_you_title"></h2>
@@ -10,11 +23,6 @@
     <p class="lead" [innerHTML]="order.display_description"></p>
   </div>
 
-  <button type="button" class="btn btn-outline-secondary mb-4" (click)="goBack()" *ngIf="displayBack">
-    <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-      <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"></path>
-    </svg>
-  </button>
   <div class="row" *ngIf="order.order_items">
     <form class="needs-validation" novalidate method="POST" (submit)="onSubmit($event)">
       <input type="hidden" name="_method" value="put" />

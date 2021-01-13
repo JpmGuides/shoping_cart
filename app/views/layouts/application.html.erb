@@ -29,15 +29,6 @@
   </head>
 
   <body calss="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light"  >
-      <div class="container">
-        <% if @client && @client.logo.attached? %>
-          <%= image_tag(@client.logo, height: '50', style: "margin: auto") %>
-        <% elsif @client %>
-          <span class="navbar-brand mb-0 h1" style="margin: auto"><%= @client.name %></span>
-        <% end %>
-      </div>
-    </nav>
     <%= yield %>
   </body>
 </html>

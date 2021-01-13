@@ -38,6 +38,10 @@ class Order < ApplicationRecord
     client.logo_url
   end
 
+  def client_name
+    client.name
+  end
+
   def display_title
     if title.present?
       title
