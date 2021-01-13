@@ -38,13 +38,13 @@
 
       <div class="col-sm-11 col">
         <div class="row">
-          <div class="col">
+          <div class="col" *ngIf="selectedCategory.dates_filter">
             <select class="form-control form-control-lg" [(ngModel)]="selectedDatesFilter" (ngModelChange)="addDatesFilter()">
               <option value="null">{{ selectedCategory.dates_filter_label || 'Filtrer par dates' }}</option>
               <option *ngFor="let dates of datesFilters(); index as i" value="{{ dates }}">{{dates[0] | date: 'd/M/yy'}} => {{dates[1] | date: 'd/M/yy'}}</option>
             </select>
           </div>
-          <div class="col">
+          <div class="col" *ngIf="selectedCategory.kind_filter">
             <select class="form-control form-control-lg" [(ngModel)]="selectedKindFilter" (ngModelChange)="addKindFilter()">
               <option value="null">{{ selectedCategory.kind_filter_label || 'Filtrer par sorte' }}</option>
               <option *ngFor="let kind of kindFilters()" value="{{ kind }}" [innerHTML]="kind"></option>
