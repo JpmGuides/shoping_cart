@@ -96,6 +96,18 @@ class OrdersController < ApplicationController
     end
   end
 
+  def remove_product
+    @order = Order.find_by(key: params[:id])
+
+    if @order.present?
+      @order.order_items.find(params[:item_id]).destroy
+    end
+
+    respond_to do |format|
+      format.json { render json: @order.order_items, except: [:created_at, :updated_at], methods: [:category_title] }
+    end
+  end
+
   protected
 
   def order_params

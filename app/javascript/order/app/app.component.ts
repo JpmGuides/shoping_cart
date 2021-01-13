@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 
@@ -77,5 +77,20 @@ export class AppComponent implements OnInit {
     if (allRequiredValid) {
       event.target.submit()
     }
+  }
+
+  removeItem(item) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'X-CSRF-Token': document.querySelector('meta[name=csrf-token]').getAttribute('content')
+      }),
+      responseType: 'json'
+    }
+
+    this._http.delete(window.location.href + '/remove_item/' + item.id + '.json', httpOptions)
+    .subscribe((data) => {
+      this.order.order_items = data
+      this.total = this.order.order_items.reduce((a, b) => +a + +b.price, 0);
+    });
   }
 }

@@ -44,13 +44,16 @@
                   <input class="form-control" placeholder="jj/mm/aaaa" [id]="field.key" [name]="'order[order_items][' + item.id + '][' + field.key + ']'" [value]="valueFor(item, field.key, field.type)" [required]="field.required" bsDatepicker [bsConfig]="{ containerClass: 'theme-default' }" *ngIf="field.type == 'date'">
                 </div>
               </div>
+              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-dash-circle-fill remove-order-item" viewBox="0 0 16 16" (click)="removeItem(item)">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.5 7.5a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7z"/>
+              </svg>
             </div>
-            <span class="text-muted">{{item.price | number:'1.2-2'}} ({{ order.currency }})</span>
+            <span class="text-muted">{{item.price | number:'1.2-2'}} {{ order.currency }}</span>
           </li>
 
           <li class="list-group-item d-flex justify-content-between">
             <span>Total</span>
-            <strong>{{total  | number:'1.2-2'}} ({{ order.currency }})</strong>
+            <strong>{{total  | number:'1.2-2'}} {{ order.currency }}</strong>
           </li>
         </ul>
         <hr class="mb-4">

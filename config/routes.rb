@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :orders, only: [:show, :update]
+  resources :orders, only: [:show, :update] do
+    member do
+      delete 'remove_item/:item_id', action: :remove_product
+    end
+  end
   resources :clients, only: [:show] do
     resources :orders, only: [:create] do
       collection do

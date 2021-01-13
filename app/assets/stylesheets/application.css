@@ -88,3 +88,14 @@ body {
     opacity: 1;
   }
 }
+
+.remove-order-item {
+  color: #6c757d;
+  position: absolute;
+  bottom: 22px;
+  right: 22px;
+}
+
+.remove-order-item:hover {
+  color: #dc3545;
+}
