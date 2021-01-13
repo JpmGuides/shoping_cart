@@ -28,7 +28,11 @@ export class AppComponent implements OnInit {
 
   selectCategory(category) {
     this.selectedCategory = category
-    this.availableProducts = this.selectedCategory.products
+    if (this.selectedCategory.order_metadata_key) {
+      this.availableProducts = _.orderBy(this.selectedCategory.products, 'metadata.' + this.selectedCategory.order_metadata_key)
+    } else {
+      this.availableProducts = this.selectedCategory.products
+    }
   }
 
   deselectCategory() {
@@ -107,7 +111,11 @@ export class AppComponent implements OnInit {
   }
 
   applyFilters() {
-    this.availableProducts = _.filter(this.selectedCategory.products, this.activeFilters)
+    if (this.selectedCategory.order_metadata_key) {
+      this.availableProducts = _.orderBy(_.filter(this.selectedCategory.products, this.activeFilters), 'metadata.' + this.selectedCategory.order_metadata_key)
+    } else {
+      this.availableProducts = _.filter(this.selectedCategory.products, this.activeFilters)
+    }
   }
 
   getOrder() {
