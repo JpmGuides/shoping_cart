@@ -95,7 +95,6 @@ export class AppComponent implements OnInit {
     this._http.get(window.location.href + '.json', { responseType: 'json' })
     .subscribe((data) => {
       this.client = data
-      console.log(data)
       let images = []
 
       this.client.categories.forEach(category => {
@@ -119,7 +118,6 @@ export class AppComponent implements OnInit {
     for (var i = 0; i < args.length; i++) {
       imgs[i] = new Image();
       imgs[i].src = args[i];
-      console.log('loaded: ' + args[i]);
     }
   }
 }

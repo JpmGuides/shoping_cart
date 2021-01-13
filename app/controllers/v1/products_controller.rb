@@ -39,7 +39,8 @@ class V1::ProductsController < ApplicationController
       :title, :description, :reference, :image_base_64, :display, :status, :start_date,
       :end_date, :category_reference, :kind, :button_prefix_text,
       order_fields: [:name, :key, :type, :required],
-      prices_attributes: [:name, :start_date, :end_date, :price]
+      prices_attributes: [:name, :start_date, :end_date, :price],
+      metadata: {}
     )
   end
 end

@@ -69,8 +69,6 @@ export class AppComponent implements OnInit {
     })
     filters = _.uniqWith(_.compact(filters), _.isEqual)
 
-    console.log(filters)
-
     return filters
   }
 
@@ -150,7 +148,6 @@ export class AppComponent implements OnInit {
     for (var i = 0; i < args.length; i++) {
       imgs[i] = new Image();
       imgs[i].src = args[i];
-      console.log('loaded: ' + args[i]);
     }
   }
 }
