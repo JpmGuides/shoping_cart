@@ -14,6 +14,8 @@ export class AppComponent implements OnInit {
   public client: any
   public selectedCategory: any
   public order: any
+  public selectedDatesFilter: any = 'null'
+  public selectedKindFilter: any = 'null'
   activeFilters: any = {}
 
   constructor(private _http: HttpClient, private cookieService: CookieService) { }
@@ -24,11 +26,15 @@ export class AppComponent implements OnInit {
   }
 
   selectCategory(category) {
-    this.selectedCategory = category;
+    this.selectedCategory = category
+    this.availableProducts = this.selectedCategory.products
+    console.log(this.availableProducts)
   }
 
   deselectCategory() {
-    this.selectedCategory = null;
+    this.selectedCategory = null
+    this.selectedDateFilter = ''
+    this.availableProducts = null
   }
 
   getClientDetails() {
@@ -68,12 +74,12 @@ export class AppComponent implements OnInit {
     return filters
   }
 
-  addDatesFilter(dates) {
-    if (dates != 'null') {
-      let parsedDate = dates.split(',')
+  addDatesFilter() {
+    if (this.selectedDatesFilter != 'null') {
+      let parsedDate = this.selectedDatesFilter.split(',')
 
-      this.activeFilters.start_date = new Date(parsedDate[0])
-      this.activeFilters.end_date = new Date(parsedDate[1])
+      this.activeFilters.start_date = parsedDate[0]
+      this.activeFilters.end_date = parsedDate[1]
     } else {
       delete this.activeFilters.start_date
       delete this.activeFilters.end_date
@@ -92,9 +98,9 @@ export class AppComponent implements OnInit {
     return filters
   }
 
-  addKindFilter(kind) {
-    if (kind != 'null') {
-      this.activeFilters.kind = kind
+  addKindFilter() {
+    if (this.selectedKindFilter != 'null') {
+      this.activeFilters.kind = this.selectedKindFilter
     } else {
       delete this.activeFilters.kind
     }
@@ -103,7 +109,7 @@ export class AppComponent implements OnInit {
   }
 
   applyFilters() {
-    console.log(this.activeFilters)
+    this.availableProducts = _.filter(this.selectedCategory.products, this.activeFilters)
   }
 
   getOrder() {

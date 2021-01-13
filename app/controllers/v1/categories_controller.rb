@@ -37,6 +37,6 @@ class V1::CategoriesController < ApplicationController
 
   def categories_params
     params.permit(categories: [:title, :description, :reference, :days_count, :image_base_64,
-      :dates_filter, :kind_filter, :button_text])
+      :dates_filter, :kind_filter, :button_text, :dates_filter_label, :kind_filter_label ])
   end
 end

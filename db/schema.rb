@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_12_174552) do
+ActiveRecord::Schema.define(version: 2021_01_13_093954) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 2021_01_12_174552) do
     t.boolean "kind_filter", default: false
     t.string "button_text"
     t.integer "position"
+    t.string "dates_filter_label"
+    t.string "kind_filter_label"
   end
 
   create_table "clients", force: :cascade do |t|

@@ -27,14 +27,35 @@
   </div>
 
   <div *ngIf="selectedCategory">
-    <button type="button" class="btn btn-outline-primary mb-4" (click)="deselectCategory()">
-      <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"></path>
-      </svg>
-    </button>
+    <div class="row">
+      <div class="col-sm-1 col">
+        <button type="button" class="btn btn-outline-secondary mb-4" (click)="deselectCategory()">
+          <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-arrow-left-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"></path>
+          </svg>
+        </button>
+      </div>
+
+      <div class="col-sm-11 col">
+        <div class="row">
+          <div class="col">
+            <select class="form-control form-control-lg" [(ngModel)]="selectedDatesFilter" (ngModelChange)="addDatesFilter()">
+              <option value="null">{{ selectedCategory.dates_filter_label || 'Filtrer par dates' }}</option>
+              <option *ngFor="let dates of datesFilters(); index as i" value="{{ dates }}">{{dates[0] | date: 'd/M/yy'}} => {{dates[1] | date: 'd/M/yy'}}</option>
+            </select>
+          </div>
+          <div class="col">
+            <select class="form-control form-control-lg" [(ngModel)]="selectedKindFilter" (ngModelChange)="addKindFilter()">
+              <option value="null">{{ selectedCategory.kind_filter_label || 'Filtrer par sorte' }}</option>
+              <option *ngFor="let kind of kindFilters()" value="{{ kind }}" [innerHTML]="kind"></option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="row row-cols-1 row-cols-md-2">
-      <div class="col mb-4" *ngFor="let product of selectedCategory.products">
+      <div class="col mb-4" *ngFor="let product of availableProducts">
         <div class="card product">
           <img [src]="product.image_url" class="card-img-top" *ngIf="product.image_url">
 
