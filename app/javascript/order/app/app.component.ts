@@ -83,11 +83,10 @@ export class AppComponent implements OnInit {
     const httpOptions = {
       headers: new HttpHeaders({
         'X-CSRF-Token': document.querySelector('meta[name=csrf-token]').getAttribute('content')
-      }),
-      responseType: 'json'
+      })
     }
 
-    this._http.delete(window.location.href + '/remove_item/' + item.id + '.json', httpOptions)
+    this._http.delete(window.location.href + '/remove_item/' + item.id + '.json', httpOptions, { responseType: 'json' })
     .subscribe((data) => {
       this.order.order_items = data
       this.total = this.order.order_items.reduce((a, b) => +a + +b.price, 0);
