@@ -80,13 +80,12 @@ export class AppComponent implements OnInit {
   }
 
   removeItem(item) {
-    const httpOptions = {
+    this._http.delete(window.location.href + '/remove_item/' + item.id + '.json', {
       headers: new HttpHeaders({
         'X-CSRF-Token': document.querySelector('meta[name=csrf-token]').getAttribute('content')
-      })
-    }
-
-    this._http.delete(window.location.href + '/remove_item/' + item.id + '.json', httpOptions, { responseType: 'json' })
+      }),
+      responseType: 'json'
+    })
     .subscribe((data) => {
       this.order.order_items = data
       this.total = this.order.order_items.reduce((a, b) => +a + +b.price, 0);
