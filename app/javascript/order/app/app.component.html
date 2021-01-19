@@ -91,7 +91,7 @@
         <hr class="mb-4">
         <p class="lead" [innerHTML]="order.display_checkout_text"></p>
         <div class="payment-logo" *ngIf="order.has_online_payment">
-          <img src="/assets/twint.svg"><img src="/assets/mastercard.svg"><img src="/assets/visa.svg">
+          <img src="/twint.svg"><img src="/mastercard.svg"><img src="/visa.svg">
         </div>
         <hr class="mb-4">
         <input class="btn btn-secondary btn-lg btn-block mb-4" type="submit" [value]="order.display_checkout_button">
