@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_13_115043) do
+ActiveRecord::Schema.define(version: 2021_01_19_132023) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -83,6 +83,10 @@ ActiveRecord::Schema.define(version: 2021_01_13_115043) do
     t.string "order_delivery_title"
     t.string "catalog_title"
     t.json "delivery_fields_values"
+    t.string "six_saferpay_customer_id"
+    t.string "six_saferpay_terminal_id"
+    t.string "six_saferpay_username"
+    t.string "six_saferpay_password"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -120,6 +124,8 @@ ActiveRecord::Schema.define(version: 2021_01_13_115043) do
     t.string "thank_you_title"
     t.string "delivery_title"
     t.date "start_date"
+    t.string "six_saferpay_transaction_id"
+    t.boolean "disable_online_payment", default: false
   end
 
   create_table "prices", force: :cascade do |t|

@@ -150,7 +150,7 @@ class Order < ApplicationRecord
 
   def json_for_webhook
     h = invocing_fields_values.map {|v| [v['key'], v['value']]}.to_h
-    h.merge!('reference' => reference, 'start_date' => start_date)
+    h.merge!('reference' => reference, 'start_date' => start_date, 'six_saferpay_transaction_id' => six_saferpay_transaction_id)
     items_values = []
     order_items.each do |item|
       value = (item.order_fields_values || []).map {|v| [v['key'], v['value']]}.to_h
@@ -158,6 +158,29 @@ class Order < ApplicationRecord
       items_values << value
     end
     h.merge('items' => items_values)
+  end
+
+  def total
+    order_items.sum(&:price)
+  end
+
+  def get_saferpay_redirect_url
+    SixSaferpay.configure do |config|
+      config.customer_id = client.six_saferpay_customer_id
+      config.terminal_id = client.six_saferpay_terminal_id
+      config.username = client.six_saferpay_username
+      config.password = client.six_saferpay_password
+      config.success_url = "#{client.base_domain}/orders/#{key}/payment_success"
+      config.fail_url = "#{client.base_domain}/orders/#{key}/payment_fail"
+      config.base_url = Rails.env.production? ? 'https://www.saferpay.com/api' : 'https://test.saferpay.com/api'
+    end
+
+    amount = SixSaferpay::Amount.new(value: (total * 100).to_i.to_s, currency_code: currency)
+    payment = SixSaferpay::Payment.new(amount: amount, order_id: id, description: "Order #{id}")
+    initialize = SixSaferpay::SixPaymentPage::Initialize.new(payment: payment)
+    initialize_response = SixSaferpay::Client.post(initialize)
+    update_columns(six_saferpay_transaction_id: initialize_response.token)
+    initialize_response.redirect_url
   end
 
   private

@@ -23,6 +23,10 @@
     <p class="lead" [innerHTML]="order.display_description"></p>
   </div>
 
+  <div class="alert alert-danger" role="alert" *ngIf="order.status == 'payment_fail'">
+    Le payment à malheureusement été refusé
+  </div>
+
   <div class="row" *ngIf="order.order_items">
     <form class="needs-validation" novalidate method="POST" (submit)="onSubmit($event)">
       <input type="hidden" name="_method" value="put" />
@@ -77,7 +81,7 @@
         <div class="row">
           <div class="col-sm-12 col-lg-6" style="margin-bottom: 10px;" *ngFor="let field of order.invoicing_fields">
             <label [for]="field.key" [innerHTML]="field.name"></label>
-            <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[' + field.key + ']'" [required]="field.required" placeholder="" value="">
+            <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[' + field.key + ']'" [required]="field.required" placeholder="" [value]="orderValueFor(field.key, field.type)">
           </div>
         </div>
 

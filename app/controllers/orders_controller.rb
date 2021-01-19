@@ -16,7 +16,7 @@ class OrdersController < ApplicationController
         except: [
           :title, :description, :checkout_text, :checkout_button, :cart_title,
           :address_title, :thank_you_text, :thank_you_title, :delivery_title,
-          :created_at, :updated_at
+          :created_at, :updated_at, :disable_online_payment, :six_saferpay_transaction_id
         ]
       }
     end
@@ -35,11 +35,17 @@ class OrdersController < ApplicationController
       item.update(order_fields_values: v.map{ |k,v| { key: k, value: v } })
     end
 
-    @order.update(invocing_fields_values: valid_params.map{ |k,v| { key: k, value: v } }, status: 'accepted')
-    cookies.delete :'cart-key'
+    if !@order.disable_online_payment && @order.client.has_online_payment?
+      @order.update(invocing_fields_values: valid_params.map{ |k,v| { key: k, value: v } }, status: 'waiting_for_payment')
 
-    respond_to do |format|
-      format.html { render :show }
+      redirect_to @order.get_saferpay_redirect_url
+    else
+      @order.update(invocing_fields_values: valid_params.map{ |k,v| { key: k, value: v } }, status: 'accepted')
+      cookies.delete :'cart-key'
+
+      respond_to do |format|
+        format.html { render :show }
+      end
     end
   end
 
@@ -106,6 +112,23 @@ class OrdersController < ApplicationController
     respond_to do |format|
       format.json { render json: @order.order_items, except: [:created_at, :updated_at], methods: [:category_title] }
     end
+  end
+
+  def payment_success
+    @order = Order.find_by(key: params[:id])
+
+    @order.update(status: 'accepted')
+    cookies.delete :'cart-key'
+
+    redirect_to action: 'show', id: @order.key
+  end
+
+  def payment_fail
+    @order = Order.find_by(key: params[:id])
+
+    @order.update(status: 'payment_fail')
+
+    redirect_to action: 'show', id: @order.key
   end
 
   protected

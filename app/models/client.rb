@@ -47,6 +47,21 @@ class Client < ApplicationRecord
     end
   end
 
+  def has_online_payment?
+    six_saferpay_customer_id.present? &&
+    six_saferpay_terminal_id.present? &&
+    six_saferpay_username.present? &&
+    six_saferpay_password.present?
+  end
+
+  def base_domain
+    if Rails.env.production?
+      "https://#{subdomain.present? ? "#{subdomain}." : ''}bookexperience.ch"
+    else
+      "http://#{subdomain.present? ? "#{subdomain}." : ''}localhost:3000"
+    end
+  end
+
   private
 
   def set_api_key

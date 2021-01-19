@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   resources :orders, only: [:show, :update] do
     member do
       delete 'remove_item/:item_id', action: :remove_product
+      get 'payment_success', action: :payment_success
+      get 'payment_fail', action: :payment_fail
     end
   end
   resources :clients, only: [:show] do

@@ -41,6 +41,20 @@ export class AppComponent implements OnInit {
     const field = item.order_fields_values.filter(function(i) { return i.key == key})
 
     if (field.length > 0) {
+      return field[0].value
+    } else {
+      return ''
+    }
+  }
+
+  orderValueFor(key: string, type: string) {
+    if (!this.order.invocing_fields_values) {
+      return ''
+    }
+
+    const field = this.order.invocing_fields_values.filter(function(i) { return i.key == key})
+
+    if (field.length > 0) {
       let value = field[0].value
       if (type == 'date') {
         value = Date.parse(value)
