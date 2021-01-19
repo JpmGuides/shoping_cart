@@ -176,11 +176,15 @@ class Order < ApplicationRecord
     end
 
     amount = SixSaferpay::Amount.new(value: (total * 100).to_i.to_s, currency_code: currency)
-    payment = SixSaferpay::Payment.new(amount: amount, order_id: id, description: "Order #{id}")
+    payment = SixSaferpay::Payment.new(amount: amount, order_id: id, description: "PO-#{id}")
     initialize = SixSaferpay::SixPaymentPage::Initialize.new(payment: payment)
     initialize_response = SixSaferpay::Client.post(initialize)
     update_columns(six_saferpay_transaction_id: initialize_response.token)
     initialize_response.redirect_url
+  end
+
+  def has_online_payment
+    !disable_online_payment && client.has_online_payment?
   end
 
   private

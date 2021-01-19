@@ -14,7 +14,10 @@
 <div class="container" *ngIf="order && order.status == 'accepted'">
   <div class="py-5 text-center">
     <h2 [innerHTML]="order.display_thank_you_title"></h2>
-    <p class="lead" [innerHTML]="order.display_thank_you_text"></p>
+    <p class="lead">Numéro de référence: PO-{{ order.id }}<br>
+    {{ order.display_thank_you_text }}</p>
+
+    <a class="btn btn-secondary btn-lg mt-4" href="/">Je souhaite faire d'autres achats</a>
   </div>
 </div>
 <div class="container" *ngIf="order && order.status != 'accepted'">
@@ -24,7 +27,7 @@
   </div>
 
   <div class="alert alert-danger" role="alert" *ngIf="order.status == 'payment_fail'">
-    Le payment à malheureusement été refusé
+    Le paiement a malheureusement été refusé
   </div>
 
   <div class="row" *ngIf="order.order_items">
@@ -87,6 +90,9 @@
 
         <hr class="mb-4">
         <p class="lead" [innerHTML]="order.display_checkout_text"></p>
+        <div class="payment-logo" *ngIf="order.has_online_payment">
+          <img src="/assets/twint.svg"><img src="/assets/mastercard.svg"><img src="/assets/visa.svg">
+        </div>
         <hr class="mb-4">
         <input class="btn btn-secondary btn-lg btn-block mb-4" type="submit" [value]="order.display_checkout_button">
       </div>

@@ -99,3 +99,8 @@ body {
 .remove-order-item:hover {
   color: #dc3545;
 }
+
+.payment-logo img {
+  max-height: 30px;
+  margin-right: 10px;
+}

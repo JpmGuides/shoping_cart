@@ -11,7 +11,7 @@ class OrdersController < ApplicationController
           :invoicing_fields, :delivery_fields, :logo, :display_title, :display_description, :display_checkout_text,
           :display_checkout_button, :display_cart_title, :display_address_title,
           :display_thank_you_text, :display_thank_you_title, :display_delivery_title,
-          :client_name
+          :client_name, :has_online_payment
         ],
         except: [
           :title, :description, :checkout_text, :checkout_button, :cart_title,
@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
       item.update(order_fields_values: v.map{ |k,v| { key: k, value: v } })
     end
 
-    if !@order.disable_online_payment && @order.client.has_online_payment?
+    if @order.has_online_payment
       @order.update(invocing_fields_values: valid_params.map{ |k,v| { key: k, value: v } }, status: 'waiting_for_payment')
 
       redirect_to @order.get_saferpay_redirect_url
