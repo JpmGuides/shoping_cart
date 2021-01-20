@@ -150,7 +150,7 @@ class Order < ApplicationRecord
 
   def json_for_webhook
     h = invocing_fields_values.map {|v| [v['key'], v['value']]}.to_h
-    h.merge!('reference' => reference, 'start_date' => start_date, 'six_saferpay_transaction_id' => six_saferpay_transaction_id)
+    h.merge!('reference' => reference, 'start_date' => start_date, 'six_saferpay_transaction_id' => six_saferpay_transaction_id, 'six_saferpay_transaction_reference' => six_saferpay_transaction_reference)
     items_values = []
     order_items.each do |item|
       value = (item.order_fields_values || []).map {|v| [v['key'], v['value']]}.to_h
@@ -179,8 +179,28 @@ class Order < ApplicationRecord
     payment = SixSaferpay::Payment.new(amount: amount, order_id: id, description: "PO-#{id}")
     initialize = SixSaferpay::SixPaymentPage::Initialize.new(payment: payment)
     initialize_response = SixSaferpay::Client.post(initialize)
-    update_columns(six_saferpay_transaction_id: initialize_response.token)
+    update_columns(six_saferpay_token: initialize_response.token)
     initialize_response.redirect_url
+  end
+
+  def saferpay_capture_payment
+    SixSaferpay.configure do |config|
+      config.customer_id = client.six_saferpay_customer_id
+      config.terminal_id = client.six_saferpay_terminal_id
+      config.username = client.six_saferpay_username
+      config.password = client.six_saferpay_password
+      config.success_url = "#{client.base_domain}/orders/#{key}/payment_success"
+      config.fail_url = "#{client.base_domain}/orders/#{key}/payment_fail"
+      config.base_url = Rails.env.production? ? 'https://www.saferpay.com/api' : 'https://test.saferpay.com/api'
+    end
+
+    assert = SixSaferpay::SixPaymentPage::Assert.new(token: six_saferpay_token)
+    assert_response = SixSaferpay::Client.post(assert)
+    update_columns(six_saferpay_transaction_id: assert_response.transaction.id, six_saferpay_transaction_reference: assert_response.transaction.six_transaction_reference)
+
+    reference = SixSaferpay::CaptureReference.new(transaction_id: assert_response.transaction.id)
+    capture = SixSaferpay::SixTransaction::Capture.new(transaction_reference: reference)
+    SixSaferpay::Client.post(capture)
   end
 
   def has_online_payment

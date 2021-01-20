@@ -116,6 +116,7 @@ class OrdersController < ApplicationController
 
   def payment_success
     @order = Order.find_by(key: params[:id])
+    @order.saferpay_capture_payment
 
     @order.update(status: 'accepted')
     cookies.delete :'cart-key'
