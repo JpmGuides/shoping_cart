@@ -107,7 +107,7 @@ export class AppComponent implements OnInit {
   }
 
 
-  originalOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+  originalOrder = (a, b): number => {
     return 0;
   }
 }
