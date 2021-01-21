@@ -105,4 +105,9 @@ export class AppComponent implements OnInit {
       this.total = this.order.order_items.reduce((a, b) => +a + +b.price, 0);
     });
   }
+
+
+  originalOrder = (a: KeyValue<number,string>, b: KeyValue<number,string>): number => {
+    return 0;
+  }
 }

@@ -71,9 +71,9 @@
           <div class="row">
             <div class="col-sm-12 col-lg-6" style="margin-bottom: 10px;" *ngFor="let field of order.delivery_fields">
               <label [for]="field.key" [innerHTML]="field.name"></label>
-              <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[' + field.key + ']'" [required]="field.required" placeholder="" value="" *ngIf="field.type != 'select'">
+              <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[' + field.key + ']'" [required]="field.required" [value]="orderValueFor(field.key, field.type)" placeholder="" value="" *ngIf="field.type != 'select'">
               <select [name]="'order[' + field.key + ']'" [required]="field.required" class="form-control" *ngIf="field.type == 'select'">
-                <option value="" disabled [innerHTML]="field.prompt"></option>
+                <option value="" disabled [innerHTML]="field.prompt" *ngIf="field.prompt"></option>
                 <option [value]="value.key" [innerHTML]="value.value" *ngFor="let value of field.values | keyvalue"></option>
               </select>
             </div>
@@ -84,7 +84,11 @@
         <div class="row">
           <div class="col-sm-12 col-lg-6" style="margin-bottom: 10px;" *ngFor="let field of order.invoicing_fields">
             <label [for]="field.key" [innerHTML]="field.name"></label>
-            <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[' + field.key + ']'" [required]="field.required" placeholder="" [value]="orderValueFor(field.key, field.type)">
+            <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[' + field.key + ']'" [required]="field.required" placeholder="" [value]="orderValueFor(field.key, field.type)" *ngIf="field.type != 'select'">
+            <select [name]="'order[' + field.key + ']'" [required]="field.required" class="form-control" *ngIf="field.type == 'select'">
+              <option value="" disabled [innerHTML]="field.prompt" *ngIf="field.prompt"></option>
+              <option [value]="value.key" [innerHTML]="value.value" *ngFor="let value of field.values | keyvalue: originalOrder"></option>
+            </select>
           </div>
         </div>
 
