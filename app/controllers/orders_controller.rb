@@ -57,7 +57,7 @@ class OrdersController < ApplicationController
       @order.order_items.delete_all
       @order.update(start_date: order_params['start_date'])
     else
-      @order = @client.orders.create(reference: DateTime.now.to_i.to_s, currency: @client.currency, start_date: order_params['start_date'] )
+      @order = @client.orders.create(currency: @client.currency, start_date: order_params['start_date'] )
       cookies[:'cart-key'] = {
         value: @order.key
       }
@@ -84,7 +84,7 @@ class OrdersController < ApplicationController
     @order = @client.orders.find_by(key: order_params['key'])
 
     unless order_params['key'].present? && @order.present? && @order.status != 'accepted'
-      @order = @client.orders.create(reference: DateTime.now.to_i.to_s, currency: @client.currency, start_date: order_params['start_date'] )
+      @order = @client.orders.create(currency: @client.currency, start_date: order_params['start_date'] )
       cookies[:'cart-key'] = {
         value: @order.key
       }

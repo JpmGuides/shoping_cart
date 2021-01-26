@@ -21,7 +21,7 @@ class Order < ApplicationRecord
   #
   # Validations
   #
-  validates :client, :reference, presence: true
+  validates :client, presence: true
 
   #
   # Instance methods
