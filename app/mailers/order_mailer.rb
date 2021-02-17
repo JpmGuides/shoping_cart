@@ -14,6 +14,6 @@ class OrderMailer < ApplicationMailer
       content: @order.json_for_webhook.to_json
     }
 
-    mail(to: 'guy.minder@jpmguides.com', subject: 'Nouelle commande d\'abonnements de ski')
+    mail(to: 'guy.minder@jpmguides.com', subject: 'Nouvelle commande - Webhook non atteignable')
   end
 end

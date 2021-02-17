@@ -1,5 +1,5 @@
 ActionMailer::Base.default({
-  from: "finances@arolla.com"
+  from: "information@jpmguides.com"
 })
 
 ActionMailer::Base.smtp_settings = {
