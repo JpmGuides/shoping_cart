@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   concern :api_base do
+    resource :clients, only: [:update]
     resources :categories, only: [:create]
     resources :products, only: [:create, :destroy]
     resources :orders, only: [:create]
