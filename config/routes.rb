@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     end
   end
   resources :clients, only: [:show] do
+    get :general_conditions
     resources :orders, only: [:create] do
       collection do
         post :add_product

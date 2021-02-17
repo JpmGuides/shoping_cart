@@ -8,6 +8,10 @@ class ClientsController < ApplicationController
     end
   end
 
+  def general_conditions
+    @client = Client.find(params[:client_id])
+  end
+
   protected
 
   def order_params

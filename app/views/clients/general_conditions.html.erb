@@ -1,0 +1,12 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+  <div class="container">
+    <% if @client.logo.attached?%>
+      <%= image_tag(@client.logo, style: 'margin: auto; max-height: 50px; max-width: 60%') %>
+    <% else %>
+      <span class="navbar-brand mb-0 h1" style="margin: auto"><%= @client.name %></span>
+    <% end %>
+  </div>
+</nav>
+<div class="container pt-3 pb-3">
+  <%= @client.general_conditions_page_html.html_safe %>
+</div>

@@ -1,4 +1,6 @@
 class Order < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   #
   # Associations
   #
@@ -130,6 +132,14 @@ class Order < ApplicationRecord
     else
       "Merci pour votre commande"
     end
+  end
+
+  def general_conditions_checkbox_label
+    client.general_conditions_checkbox_label
+  end
+
+  def general_conditions_url
+    client_general_conditions_path(client.id)
   end
 
   def post_to_webhook

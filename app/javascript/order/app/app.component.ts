@@ -80,11 +80,20 @@ export class AppComponent implements OnInit {
     let requiredFields: NodeListOf<HTMLInputElement> = document.querySelectorAll('input[required], select[required]') as NodeListOf<HTMLInputElement>
 
     for (let i = 0; i < requiredFields.length; ++i) {
-      if (!!requiredFields[i].value) {
-        requiredFields[i].classList.remove('is-invalid')
+      if (requiredFields[i].type == 'checkbox') {
+        if (requiredFields[i].checked) {
+          requiredFields[i].classList.remove('is-invalid')
+        } else {
+          allRequiredValid = false
+          requiredFields[i].classList.add('is-invalid')
+        }
       } else {
-        allRequiredValid = false
-        requiredFields[i].classList.add('is-invalid')
+        if (!!requiredFields[i].value) {
+          requiredFields[i].classList.remove('is-invalid')
+        } else {
+          allRequiredValid = false
+          requiredFields[i].classList.add('is-invalid')
+        }
       }
     }
 
