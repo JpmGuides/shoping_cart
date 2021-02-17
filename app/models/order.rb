@@ -162,7 +162,7 @@ class Order < ApplicationRecord
 
   def json_for_webhook
     h = invocing_fields_values.map {|v| [v['key'], v['value']]}.to_h
-    h.merge!('reference' => reference, 'start_date' => start_date, 'six_saferpay_transaction_id' => six_saferpay_transaction_id, 'six_saferpay_transaction_reference' => six_saferpay_transaction_reference)
+    h.merge!('id' => id, 'reference' => reference, 'start_date' => start_date, 'six_saferpay_transaction_id' => six_saferpay_transaction_id, 'six_saferpay_transaction_reference' => six_saferpay_transaction_reference)
     items_values = []
     order_items.each do |item|
       value = (item.order_fields_values || []).map {|v| [v['key'], v['value']]}.to_h
