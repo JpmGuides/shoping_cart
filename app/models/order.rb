@@ -149,6 +149,8 @@ class Order < ApplicationRecord
     uri = URI.parse(client.webhook_url)
     http = Net::HTTP.new(uri.host, uri.port)
     http.use_ssl = (uri.scheme == 'https')
+    http.read_timeout = 7
+    http.open_timeout = 7
 
     request = Net::HTTP::Post.new(uri.path)
     request.basic_auth(client.basic_auth_username, client.basic_auth_password) if client.basic_auth_username.present? && client.basic_auth_password.present?
