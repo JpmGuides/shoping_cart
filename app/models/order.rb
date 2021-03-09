@@ -160,6 +160,8 @@ class Order < ApplicationRecord
     response = http.request(request)
 
     OrderMailer.with(order_id: id).admin.deliver_later unless response.is_a?(Net::HTTPSuccess)
+  rescue
+    OrderMailer.with(order_id: id).admin.deliver_later
   end
 
   def json_for_webhook
