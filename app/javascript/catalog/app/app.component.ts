@@ -47,7 +47,7 @@ export class AppComponent implements OnInit {
       this.client = data
       let images = []
 
-      this.client.categories.forEach(category => {
+      this.client.online_categories.forEach(category => {
         if (category.image_url) {
           images.push(category.image_url)
         }

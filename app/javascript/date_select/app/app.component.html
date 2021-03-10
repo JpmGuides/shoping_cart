@@ -21,7 +21,7 @@
     <label for="category" class="col-form-label">Votre type d'abonnement</label>
     <select name="category" class="form-control" [(ngModel)]="selectedCategoryReference" (ngModelChange)='findCategoryObject()'>
       <option [value]="undefined" [innerHTML]="client.date_select_choose_text"></option>
-      <option [value]="category.reference" [innerHTML]="category.title" *ngFor="let category of client.categories"></option>
+      <option [value]="category.reference" [innerHTML]="category.title" *ngFor="let category of client.online_categories"></option>
     </select>
   </div>
 

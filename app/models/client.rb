@@ -6,6 +6,7 @@ class Client < ApplicationRecord
   # Associations
   #
   has_many :categories, -> { order(:position) }, inverse_of: :client
+  has_many :online_categories, -> { where(online_flag: true).order(:position) }, class_name: 'Category'
   has_many :products, inverse_of: :client
   has_many :orders, inverse_of: :client
 

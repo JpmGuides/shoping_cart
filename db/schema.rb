@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_17_082446) do
+ActiveRecord::Schema.define(version: 2021_03_10_090729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2021_02_17_082446) do
     t.string "dates_filter_label"
     t.string "kind_filter_label"
     t.string "order_metadata_key"
+    t.boolean "online_flag", default: true
   end
 
   create_table "clients", force: :cascade do |t|

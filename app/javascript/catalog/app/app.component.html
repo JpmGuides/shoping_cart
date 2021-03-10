@@ -26,7 +26,7 @@
   </div>
 
   <div class="mt-4 row row-cols-1 row-cols-md-2" *ngIf="client && !selectedCategory">
-    <div class="col mb-4" *ngFor="let category of client.categories">
+    <div class="col mb-4" *ngFor="let category of client.online_categories">
       <div class="card">
         <img [src]="category.image_url" class="card-img-top" *ngIf="category.image_url">
         <div class="card-body">

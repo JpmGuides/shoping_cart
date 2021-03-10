@@ -61,7 +61,7 @@ export class AppComponent implements OnInit {
   findCategoryObject() {
     this.totalQuantity = 0
     if (this.selectedCategoryReference != 'undefined') {
-      this.selectedCategory = this.client.categories.find((c) => { return c.reference == this.selectedCategoryReference})
+      this.selectedCategory = this.client.online_categories.find((c) => { return c.reference == this.selectedCategoryReference})
       this.products = this.selectedCategory.products
     } else {
       this.selectedCategory = undefined
@@ -97,7 +97,7 @@ export class AppComponent implements OnInit {
       this.client = data
       let images = []
 
-      this.client.categories.forEach(category => {
+      this.client.online_categories.forEach(category => {
         if (category.image_url) {
           images.push(category.image_url)
         }
