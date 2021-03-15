@@ -5,7 +5,7 @@ class Category < ApplicationRecord
   # Associations
   #
   belongs_to :client, inverse_of: :categories
-  has_many :products, foreign_key: :category_reference, primary_key: :reference
+  has_many :products, -> { order(:start_date, :end_date) }, foreign_key: :category_reference, primary_key: :reference
 
   #
   # Validations
