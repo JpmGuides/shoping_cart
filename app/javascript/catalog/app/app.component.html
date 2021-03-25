@@ -52,6 +52,18 @@
           <option *ngFor="let kind of kindFilters()" value="{{ kind }}" [innerHTML]="kind"></option>
         </select>
       </div>
+      <div class="col" *ngIf="selectedCategory.duration_filter">
+        <select class="form-control" [(ngModel)]="selectedDurationFilter" (ngModelChange)="addDurationFilter()">
+          <option value="null">{{ selectedCategory.duration_filter_label || 'Filtrer par durée' }}</option>
+          <option *ngFor="let duration of durationFilters()" value="{{ duration }}" [innerHTML]="duration"></option>
+        </select>
+      </div>
+      <div class="col" *ngIf="selectedCategory.age_filter">
+        <select class="form-control" [(ngModel)]="selectedAgeFilter" (ngModelChange)="addAgeFilter()">
+          <option value="null">{{ selectedCategory.age_filter_label || 'Filtrer par age' }}</option>
+          <option *ngFor="let age of ageFilters()" value="{{ age }}" [innerHTML]="age"></option>
+        </select>
+      </div>
     </div>
 
     <div class="row row-cols-1 row-cols-md-2 mt-4">

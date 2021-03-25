@@ -16,7 +16,10 @@ export class AppComponent implements OnInit {
   public order: any
   public selectedDatesFilter: any = 'null'
   public selectedKindFilter: any = 'null'
+  public selectedDurationFilter: any = 'null'
+  public selectedAgeFilter: any = 'null'
   activeFilters: any = {}
+  activeMetadataFilters: any = {}
   availableProducts: any
 
   constructor(private _http: HttpClient, private cookieService: CookieService) { }
@@ -110,11 +113,58 @@ export class AppComponent implements OnInit {
     this.applyFilters()
   }
 
+  durationFilters() {
+    let filters = this.selectedCategory.products.map(product => {
+      if (product.metadata) {
+        return product.metadata.duration
+      }
+    })
+
+    filters = _.uniq(_.compact(filters))
+
+    return filters
+  }
+
+  addDurationFilter() {
+    if (this.selectedDurationFilter != 'null') {
+      this.activeMetadataFilters.duration = this.selectedDurationFilter
+    } else {
+      delete this.activeMetadataFilters.duration
+    }
+
+    this.applyFilters()
+  }
+
+  ageFilters() {
+    return [5,6,7,8,9,10,11,12,13,14,15,16,17,18];
+  }
+
+  addAgeFilter() {
+    if (this.selectedAgeFilter != 'null') {
+      this.activeMetadataFilters.age = this.selectedAgeFilter
+    } else {
+      delete this.activeMetadataFilters.age
+    }
+
+    this.applyFilters()
+  }
+
   applyFilters() {
     if (this.selectedCategory.order_metadata_key) {
-      this.availableProducts = _.orderBy(_.filter(this.selectedCategory.products, this.activeFilters), 'metadata.' + this.selectedCategory.order_metadata_key)
-    } else {
-      this.availableProducts = _.filter(this.selectedCategory.products, this.activeFilters)
+      this.availableProducts = _.orderBy(this.selectedCategory.products, 'metadata.' + this.selectedCategory.order_metadata_key)
+    }
+
+    this.availableProducts = _.filter(this.selectedCategory.products, this.activeFilters)
+
+    if (this.activeMetadataFilters.duration) {
+      this.availableProducts = _.filter(this.selectedCategory.products, ['metadata.duration', this.activeMetadataFilters.duration])
+    }
+
+    if (this.activeMetadataFilters.age) {
+      let age_filter = this.activeMetadataFilters.age
+      this.availableProducts = _.filter(this.selectedCategory.products, function(item) {
+        return item.metadata && item.metadata.max_age && item.metadata.min_age && parseInt(item.metadata.max_age) >= age_filter && parseInt(item.metadata.min_age) <= age_filter
+      }
     }
   }
 
