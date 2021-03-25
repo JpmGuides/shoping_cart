@@ -164,7 +164,7 @@ export class AppComponent implements OnInit {
       let age_filter = this.activeMetadataFilters.age
       this.availableProducts = _.filter(this.selectedCategory.products, function(item) {
         return item.metadata && item.metadata.max_age && item.metadata.min_age && parseInt(item.metadata.max_age) >= age_filter && parseInt(item.metadata.min_age) <= age_filter
-      }
+      });
     }
   }
 

@@ -40,25 +40,25 @@
 
   <div *ngIf="selectedCategory">
     <div class="row row-cols-1 row-cols-md-2 mt-4">
-      <div class="col" *ngIf="selectedCategory.dates_filter">
+      <div class="col mb-3" *ngIf="selectedCategory.dates_filter">
         <select class="form-control" [(ngModel)]="selectedDatesFilter" (ngModelChange)="addDatesFilter()">
           <option value="null">{{ selectedCategory.dates_filter_label || 'Filtrer par dates' }}</option>
           <option *ngFor="let dates of datesFilters(); index as i" value="{{ dates }}">du {{dates[0] | date: 'd/MM/yy'}} au {{dates[1] | date: 'd/MM/yy'}}</option>
         </select>
       </div>
-      <div class="col" *ngIf="selectedCategory.kind_filter">
+      <div class="col mb-3" *ngIf="selectedCategory.kind_filter">
         <select class="form-control" [(ngModel)]="selectedKindFilter" (ngModelChange)="addKindFilter()">
           <option value="null">{{ selectedCategory.kind_filter_label || 'Filtrer par sorte' }}</option>
           <option *ngFor="let kind of kindFilters()" value="{{ kind }}" [innerHTML]="kind"></option>
         </select>
       </div>
-      <div class="col" *ngIf="selectedCategory.duration_filter">
+      <div class="col mb-3" *ngIf="selectedCategory.duration_filter">
         <select class="form-control" [(ngModel)]="selectedDurationFilter" (ngModelChange)="addDurationFilter()">
           <option value="null">{{ selectedCategory.duration_filter_label || 'Filtrer par durée' }}</option>
           <option *ngFor="let duration of durationFilters()" value="{{ duration }}" [innerHTML]="duration"></option>
         </select>
       </div>
-      <div class="col" *ngIf="selectedCategory.age_filter">
+      <div class="col mb-3" *ngIf="selectedCategory.age_filter">
         <select class="form-control" [(ngModel)]="selectedAgeFilter" (ngModelChange)="addAgeFilter()">
           <option value="null">{{ selectedCategory.age_filter_label || 'Filtrer par age' }}</option>
           <option *ngFor="let age of ageFilters()" value="{{ age }}" [innerHTML]="age"></option>
