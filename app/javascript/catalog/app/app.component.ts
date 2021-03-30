@@ -157,12 +157,12 @@ export class AppComponent implements OnInit {
     this.availableProducts = _.filter(this.selectedCategory.products, this.activeFilters)
 
     if (this.activeMetadataFilters.duration) {
-      this.availableProducts = _.filter(this.selectedCategory.products, ['metadata.duration', this.activeMetadataFilters.duration])
+      this.availableProducts = _.filter(this.availableProducts, ['metadata.duration', this.activeMetadataFilters.duration])
     }
 
     if (this.activeMetadataFilters.age) {
       let age_filter = this.activeMetadataFilters.age
-      this.availableProducts = _.filter(this.selectedCategory.products, function(item) {
+      this.availableProducts = _.filter(this.availableProducts, function(item) {
         return item.metadata && item.metadata.max_age && item.metadata.min_age && parseInt(item.metadata.max_age) >= age_filter && parseInt(item.metadata.min_age) <= age_filter
       });
     }
