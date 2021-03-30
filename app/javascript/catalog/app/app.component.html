@@ -46,12 +46,6 @@
           <option *ngFor="let dates of datesFilters(); index as i" value="{{ dates }}">du {{dates[0] | date: 'd/MM/yy'}} au {{dates[1] | date: 'd/MM/yy'}}</option>
         </select>
       </div>
-      <div class="col mb-3" *ngIf="selectedCategory.kind_filter">
-        <select class="form-control" [(ngModel)]="selectedKindFilter" (ngModelChange)="addKindFilter()">
-          <option value="null">{{ selectedCategory.kind_filter_label || 'Filtrer par sorte' }}</option>
-          <option *ngFor="let kind of kindFilters()" value="{{ kind }}" [innerHTML]="kind"></option>
-        </select>
-      </div>
       <div class="col mb-3" *ngIf="selectedCategory.duration_filter">
         <select class="form-control" [(ngModel)]="selectedDurationFilter" (ngModelChange)="addDurationFilter()">
           <option value="null">{{ selectedCategory.duration_filter_label || 'Filtrer par durée' }}</option>
@@ -62,6 +56,12 @@
         <select class="form-control" [(ngModel)]="selectedAgeFilter" (ngModelChange)="addAgeFilter()">
           <option value="null">{{ selectedCategory.age_filter_label || 'Filtrer par age' }}</option>
           <option *ngFor="let age of ageFilters()" value="{{ age }}" [innerHTML]="age"></option>
+        </select>
+      </div>
+      <div class="col mb-3" *ngIf="selectedCategory.kind_filter">
+        <select class="form-control" [(ngModel)]="selectedKindFilter" (ngModelChange)="addKindFilter()">
+          <option value="null">{{ selectedCategory.kind_filter_label || 'Filtrer par sorte' }}</option>
+          <option *ngFor="let kind of kindFilters()" value="{{ kind }}" [innerHTML]="kind"></option>
         </select>
       </div>
     </div>
