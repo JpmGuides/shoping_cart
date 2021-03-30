@@ -120,7 +120,7 @@ export class AppComponent implements OnInit {
       }
     })
 
-    filters = _.uniq(_.compact(filters))
+    filters = _.sort(_.uniq(_.compact(filters)))
 
     return filters
   }
