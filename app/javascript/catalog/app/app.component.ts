@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
     } else {
       this.availableProducts = this.selectedCategory.products
     }
-    window.history.pushState({ foo: this.client.name }, '', '/clients/' + this.client.id + '/categories/' + category.id);
+    window.history.pushState({ foo: this.client.name }, '', '/clients/' + this.client.id + '/categories/' + category.reference);
   }
 
   deselectCategory() {
