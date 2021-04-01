@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ElementRef } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -18,11 +18,18 @@ export class AppComponent implements OnInit {
   public selectedKindFilter: any = 'null'
   public selectedDurationFilter: any = 'null'
   public selectedAgeFilter: any = 'null'
+  categoryId: any
   activeFilters: any = {}
   activeMetadataFilters: any = {}
   availableProducts: any
 
-  constructor(private _http: HttpClient, private cookieService: CookieService) { }
+  constructor(private _http: HttpClient, private cookieService: CookieService, private elementRef: ElementRef) {
+    let categoryId = this.elementRef.nativeElement.getAttribute('category');
+
+    if (categoryId) {
+      this.categoryId = parseInt(categoryId);
+    }
+  }
 
   ngOnInit() {
     this.getClientDetails()
@@ -36,12 +43,14 @@ export class AppComponent implements OnInit {
     } else {
       this.availableProducts = this.selectedCategory.products
     }
+    window.history.pushState({ foo: this.client.name }, '', '/clients/' + this.client.id + '/categories/' + category.id);
   }
 
   deselectCategory() {
     this.selectedCategory = null
     this.selectedDatesFilter = ''
     this.availableProducts = null
+    window.history.pushState({ foo: this.client.name }, '', '/clients/' + this.client.id);
   }
 
   getClientDetails() {
@@ -60,6 +69,10 @@ export class AppComponent implements OnInit {
             images.push(product.image_url)
           }
         })
+
+        if (this.categoryId && this.categoryId == category.id) {
+          this.selectCategory(category)
+        }
       })
 
       this.pload(images)

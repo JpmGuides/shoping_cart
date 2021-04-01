@@ -2,6 +2,6 @@
   <date-select></date-select>
   <%= javascript_pack_tag "date_select" %>
 <% else %>
-  <catalog></catalog>
+  <catalog category="<%= @category_id %>"></catalog>
   <%= javascript_pack_tag "catalog" %>
 <% end %>

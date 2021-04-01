@@ -6,8 +6,8 @@
       </svg>
     </button>
 
-    <img [src]="client.logo_url" *ngIf="client.logo_url" style="margin: auto; max-height: 50px; max-width: 60%">
-    <span class="navbar-brand mb-0 h1" style="margin: auto" *ngIf="!client.logo_url">{{ client.name }}</span>
+    <img [src]="client.logo_url" *ngIf="client && client.logo_url" style="margin: auto; max-height: 50px; max-width: 60%">
+    <span class="navbar-brand mb-0 h1" style="margin: auto" *ngIf="client && !client.logo_url">{{ client.name }}</span>
 
     <button type="button" class="btn btn-outline-secondary" *ngIf="order" (click)="goToOrder()">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
@@ -18,7 +18,7 @@
   </div>
 </nav>
 <div class="container">
-  <img [src]="client.background_image_url" width="100%" *ngIf="client.background_image_url">
+  <img [src]="client.background_image_url" width="100%" *ngIf="client && client.background_image_url">
 
   <div class="mt-4 text-center" *ngIf="client && (client.catalog_title || client.catch_phrase)">
     <h2 [innerHTML]="client.catalog_title"></h2>

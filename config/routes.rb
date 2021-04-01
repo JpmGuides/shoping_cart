@@ -13,6 +13,7 @@ Rails.application.routes.draw do
         post :add_product
       end
     end
+    get 'categories/:category_id', action: 'show'
   end
 
   concern :api_base do
