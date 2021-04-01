@@ -24,11 +24,7 @@ export class AppComponent implements OnInit {
   availableProducts: any
 
   constructor(private _http: HttpClient, private cookieService: CookieService, private elementRef: ElementRef) {
-    let categoryId = this.elementRef.nativeElement.getAttribute('category');
-
-    if (categoryId) {
-      this.categoryId = parseInt(categoryId);
-    }
+    this.categoryId = this.elementRef.nativeElement.getAttribute('category');
   }
 
   ngOnInit() {
@@ -70,7 +66,7 @@ export class AppComponent implements OnInit {
           }
         })
 
-        if (this.categoryId && this.categoryId == category.id) {
+        if (this.categoryId && this.categoryId == category.reference) {
           this.selectCategory(category)
         }
       })
