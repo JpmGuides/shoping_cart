@@ -215,7 +215,7 @@ export class AppComponent implements OnInit {
       })
     }
 
-    this._http.post(window.location.href + '/orders/add_product.json', {
+    this._http.post('/clients/' + this.client.id + '/orders/add_product.json', {
       order: {
         key: this.cookieService.get('cart-key'),
         products: [product]
