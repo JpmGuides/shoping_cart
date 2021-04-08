@@ -40,6 +40,7 @@ export class AppComponent implements OnInit {
       this.availableProducts = this.selectedCategory.products
     }
     window.history.pushState({ foo: this.client.name }, '', '/clients/' + this.client.id + '/categories/' + category.reference);
+    window.scrollTo(0,0);
   }
 
   deselectCategory() {
@@ -47,6 +48,7 @@ export class AppComponent implements OnInit {
     this.selectedDatesFilter = ''
     this.availableProducts = null
     window.history.pushState({ foo: this.client.name }, '', '/clients/' + this.client.id);
+    window.scrollTo(0,0);
   }
 
   getClientDetails() {
