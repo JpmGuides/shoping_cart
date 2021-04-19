@@ -20,7 +20,11 @@ Rails.application.routes.draw do
     resource :clients, only: [:update]
     resources :categories, only: [:create]
     resources :products, only: [:create, :destroy]
-    resources :orders, only: [:create]
+    resources :orders, only: [:create] do
+      member do
+        post :received
+      end
+    end
   end
 
   namespace :v1 do

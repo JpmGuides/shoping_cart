@@ -16,6 +16,18 @@ class V1::OrdersController < ApplicationController
     head :bad_request
   end
 
+  def received
+    @order = @client.orders.find(params[:id])
+
+    @order.update(request_received_reference: params[:request_received_reference])
+
+    head :ok
+  rescue ActiveRecord::RecordNotFound
+    head :not_found
+  rescue ActiveRecord::RecordInvalid
+    head :bad_request
+  end
+
   protected
 
   def order_params
