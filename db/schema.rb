@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_19_122932) do
+ActiveRecord::Schema.define(version: 2021_04_29_080038) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "hstore"
@@ -94,6 +94,7 @@ ActiveRecord::Schema.define(version: 2021_04_19_122932) do
     t.string "six_saferpay_password"
     t.string "general_conditions_checkbox_label"
     t.text "general_conditions_page_html"
+    t.boolean "auto_repost_orders", default: false
   end
 
   create_table "order_items", force: :cascade do |t|
