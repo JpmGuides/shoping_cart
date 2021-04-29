@@ -9,7 +9,7 @@ namespace :orders do
           order.post_to_webhook
         end
 
-        OrderMailer.with(orders_id: not_posted_orders.pluck(&:id)).repost.deliver_now
+        OrderMailer.with(orders_id: not_posted_orders.pluck(:id)).repost.deliver_now
       end
     end
   end
