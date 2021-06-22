@@ -71,11 +71,12 @@
           <div class="row">
             <div class="col-sm-12 col-lg-6" style="margin-bottom: 10px;" *ngFor="let field of order.delivery_fields">
               <label [for]="field.key" [innerHTML]="field.name"></label>
-              <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[' + field.key + ']'" [required]="field.required" [value]="orderValueFor(field.key, field.type)" placeholder="" value="" *ngIf="field.type != 'select'">
+              <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[' + field.key + ']'" [required]="field.required" [value]="orderValueFor(field.key, field.type)" placeholder="" value="" *ngIf="field.type != 'select' && field.type != 'textarea'">
               <select [name]="'order[' + field.key + ']'" [required]="field.required" class="form-control" *ngIf="field.type == 'select'">
                 <option value="" disabled [innerHTML]="field.prompt" *ngIf="field.prompt"></option>
                 <option [value]="value.key" [innerHTML]="value.value" *ngFor="let value of field.values | keyvalue"></option>
               </select>
+              <textarea class="form-control" rows="3" [id]="field.key" [name]="'order[' + field.key + ']'" [required]="field.required" *ngIf="field.type == 'textarea'" >{{ orderValueFor(field.key, field.type) }}</textarea>
             </div>
           </div>
           <hr class="mb-4">
@@ -84,11 +85,12 @@
         <div class="row">
           <div class="col-sm-12 col-lg-6" style="margin-bottom: 10px;" *ngFor="let field of order.invoicing_fields">
             <label [for]="field.key" [innerHTML]="field.name"></label>
-            <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[' + field.key + ']'" [required]="field.required" placeholder="" [value]="orderValueFor(field.key, field.type)" *ngIf="field.type != 'select'">
+            <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[' + field.key + ']'" [required]="field.required" placeholder="" [value]="orderValueFor(field.key, field.type)" *ngIf="field.type != 'select' && field.type != 'textarea'">
             <select [name]="'order[' + field.key + ']'" [required]="field.required" class="form-control" *ngIf="field.type == 'select'">
               <option value="" disabled [innerHTML]="field.prompt" *ngIf="field.prompt"></option>
               <option [value]="value.key" [innerHTML]="value.value" *ngFor="let value of field.values | keyvalue: originalOrder"></option>
             </select>
+            <textarea class="form-control" rows="3" [id]="field.key" [name]="'order[' + field.key + ']'" [required]="field.required" *ngIf="field.type == 'textarea'" >{{ orderValueFor(field.key, field.type) }}</textarea>
           </div>
         </div>
 
