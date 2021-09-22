@@ -7,9 +7,9 @@ namespace :orders do
       if not_posted_orders.exists?
         not_posted_orders.each do |order|
           order.post_to_webhook
-        end
 
-        OrderMailer.with(orders_id: not_posted_orders.pluck(:id)).repost.deliver_now
+          OrderMailer.with(order_id: order.id).repost.deliver_now
+        end
       end
     end
   end

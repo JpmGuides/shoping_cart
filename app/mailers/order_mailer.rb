@@ -14,14 +14,16 @@ class OrderMailer < ApplicationMailer
       content: @order.json_for_webhook.to_json
     }
 
-    mail(to: 'guy.minder@jpmguides.com', cc: 'neville.dubuis@jpmguides.com', subject: 'Nouvelle commande - Webhook non atteignable')
+    mail(to: 'guy.minder@jpmguides.com', cc: 'neville.dubuis@jpmguides.com', subject: 'Shopping Cart | Nouvelle commande - Webhook non atteignable')
   end
 
   def repost
+    @order = Order.find params[:order_id]
     attachments['order.json'] = {
       mime_type: 'application/json',
+      content: @order.json_for_webhook.to_json
     }
 
-    mail(to: 'guy.minder@jpmguides.com', cc: 'neville.dubuis@jpmguides.com', subject: 'Commande(s) repostée(s)', body: params[:orders_id].join(','))
+    mail(to: 'guy.minder@jpmguides.com', cc: 'neville.dubuis@jpmguides.com', subject: 'Shopping Cart | Commande(s) repostée(s)', body: params[:orders_id].join(','))
   end
 end
