@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     resource :clients, only: [:update]
     resources :categories, only: [:create]
     resources :products, only: [:create, :destroy]
-    resources :orders, only: [:create] do
+    resources :orders, only: [:create, :destroy] do
       member do
         post :received
       end

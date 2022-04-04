@@ -16,6 +16,19 @@ class V1::OrdersController < ApplicationController
     head :bad_request
   end
 
+  def destroy
+    order = @client.orders.find_by!(reference: params[:id])
+
+    if order.status != 'accepted'
+      order.destroy
+      head :ok
+    else
+      head :bad_request
+    end
+  rescue
+    head :not_found
+  end
+
   def received
     @order = @client.orders.find(params[:id])
 
