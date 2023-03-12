@@ -50,7 +50,7 @@
                   <input [type]="field.type" class="form-control" [id]="field.key" [name]="'order[order_items][' + item.id + '][' + field.key + ']'" [value]="valueFor(item, field.key, field.type)" [required]="field.required" placeholder="" value="" *ngIf="field.type != 'select' && field.type != 'date'">
                   <select [name]="'order[order_items][' + item.id + '][' + field.key + ']'" [required]="field.required" class="form-control" *ngIf="field.type == 'select'">
                     <option value="" disabled [innerHTML]="field.prompt" *ngIf="field.prompt"></option>
-                    <option [value]="value.key" [innerHTML]="value.value" *ngFor="let value of field.values | keyvalue"></option>
+                    <option [value]="value.key" [innerHTML]="value.value" [selected]="value.key == valueFor(item, field.key, field.type)"  *ngFor="let value of field.values | keyvalue"></option>
                   </select>
                   <input class="form-control" placeholder="jj/mm/aaaa" [id]="field.key" [name]="'order[order_items][' + item.id + '][' + field.key + ']'" [value]="valueFor(item, field.key, field.type)" [required]="field.required" bsDatepicker [bsConfig]="{ containerClass: 'theme-default' }" *ngIf="field.type == 'date'">
                 </div>

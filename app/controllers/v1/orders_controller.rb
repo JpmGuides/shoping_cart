@@ -50,7 +50,7 @@ class V1::OrdersController < ApplicationController
       :disable_online_payment,
       order_items_attributes: [
         :title, :description, :price, :product_reference,
-        order_fields: [:name, :key, :type, :required],
+        order_fields: [:name, :key, :type, :required, values: {}],
         order_fields_values: [:key, :value]
       ]
     )
