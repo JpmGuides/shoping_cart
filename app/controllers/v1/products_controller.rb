@@ -38,7 +38,7 @@ class V1::ProductsController < ApplicationController
     params.require(:product).permit(
       :title, :description, :reference, :image_base_64, :display, :status, :start_date,
       :end_date, :category_reference, :kind, :button_prefix_text,
-      order_fields: [:name, :key, :type, :required],
+      order_fields: [:name, :key, :type, :required, values: {}],
       prices_attributes: [:name, :start_date, :end_date, :price],
       metadata: {}
     )
